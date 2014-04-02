@@ -216,10 +216,10 @@ void Game::CameraPos(){
 	camY = toY + camRad * cosNS;
 	camX = toX + camRad * sinNS * sinEW;
 
-	if(camRad < CAM_MIN)
-		camRad = CAM_MIN;
-	if(camRad > CAM_MAX)
-		camRad = CAM_MAX;
+	//if(camRad < CAM_MIN)
+	//	camRad = CAM_MIN;
+	//if(camRad > CAM_MAX)
+	//	camRad = CAM_MAX;
 }
 
 void Game::useCamera(){
