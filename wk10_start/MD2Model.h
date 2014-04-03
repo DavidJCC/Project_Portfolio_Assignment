@@ -12,6 +12,7 @@
 #include "Object.h"
 
 class MD2Model : public Object{
+protected:
 	modelData_t *myModel;
 	modelData_t *gunModel;
 	float interValue;

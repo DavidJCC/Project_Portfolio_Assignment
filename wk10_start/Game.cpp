@@ -77,6 +77,7 @@ void Game::Initialise(){
 	//player setup
 	player = new Player("Data/pknight/pknight.md2", "Data/pknight/pknight.bmp", 340.0f, 275.0f, -300.0f );
 	player->alpha = 1.0f;
+	player->switchBB(false);
 
 	//enemies setup
 	for(int i = 0; i < NUM_OBJS; i++){
@@ -105,6 +106,12 @@ void Game::Initialise(){
 	lSphere = gluNewQuadric();	//to show where light pos is
 	gluQuadricDrawStyle(lSphere, GLU_FILL);
 	gluQuadricNormals(lSphere, GLU_NONE);
+
+	//controls the cursor
+	//POINT p;
+	//p.x = SCRN_W/2; p.y = SCRN_H/2;
+	//ClientToScreen(hWnd, &p);
+	//SetCursorPos(p.x, p.y);
 }
 
 void Game::Shutdown(){
@@ -127,9 +134,11 @@ void Game::Update(){
 		calcYFromCubeCtr(npc[i], npc[i]->bb.ySize() / 2.0f);
 
 	calcYFromCubeCtr(player, player->bb.ySize()  / 2.0f);
-
 	toX = player->getPos().x; toY = player->getPos().y; toZ = player->getPos().z;
+	player->update(tbf);
 	CameraPos();
+
+	//SetPhysicalCursorPos(400,300);
 }
 
 void Game::drawLightSource(){
@@ -235,7 +244,7 @@ void Game::renderPlayer(){
 			glTranslatef(npc[i]->pos.x, npc[i]->pos.y, npc[i]->pos.z);
 			//npc[i]->bb.render();
 			glRotatef(90.0f, -1.0f, 0.0f, 0.0f);
-			npc[i]->DisplayMD2Interpolate(0, 0, 0.07);
+			npc[i]->DisplayMD2Interpolate(0, 197, 0.07);
 		glPopMatrix();
 	}
 }

@@ -126,4 +126,5 @@ public:
 	void drawLightSource();
 	void renderPlayer();
 	Vector unProject();
+	void constrainCam();
 };

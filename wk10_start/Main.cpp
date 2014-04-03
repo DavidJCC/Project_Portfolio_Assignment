@@ -29,6 +29,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 				case VK_ESCAPE:
 					PostQuitMessage(0);
 					break;
+				case VK_SPACE:
+					break;
 				case VK_L:
 					if(g_Game.drawLight)
 						g_Game.drawLight = false;
@@ -36,21 +38,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 						g_Game.drawLight = true;
 					break;
 				case VK_W:
-					g_Game.player->move(7, 0, 0);
+					g_Game.player->setVel(200, 0, 0);
+					g_Game.player->setPlayerMoving(true);
 					break;
 				case VK_S:
-					g_Game.player->move(-7, 0, 0);
 					break;
 				case VK_A:
-					g_Game.player->move(0, 0, -7);
 					break;
 				case VK_D:
-					g_Game.player->move(0, 0, 7);
 				default:
 					break;
 			}
 			break;
-
+		case WM_KEYUP:
+			switch(wParam)	
+			{
+				case VK_W:
+					g_Game.player->setVel(0, 0, 0);
+					g_Game.player->setPlayerMoving(false);
+					break;
+				case VK_SPACE:
+					g_Game.player->switchBB(false);
+					break;
+				default:
+					break;
+			}
+			break;
 		case WM_DESTROY:
 		case WM_CLOSE:
 			PostQuitMessage(0);
@@ -70,7 +83,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 				g_Game.camRad *= 1.1f;
 			else
 				g_Game.camRad /= 1.1f;
-			g_Game.CameraPos();
+			//g_Game.CameraPos();
 		break;
 		case WM_LBUTTONDOWN:
 		break;
@@ -93,7 +106,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	// dont create a screen if we are in "console output" mode
 #ifndef _CONSOLEONLY_
-	g_Game.CreateScreen("Lighting example", 800, 600, 32, false);
+	g_Game.CreateScreen("Lighting example", SCRN_W, SCRN_H, 32, false);
 	g_Game.InitOpenGL();
 #endif
 
