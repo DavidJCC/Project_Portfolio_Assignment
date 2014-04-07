@@ -52,12 +52,12 @@ void Player::walkAnimation()
 		if(firstTime)
 			this->myModel->interpol = 0.0;
 		firstTime = false;
-		DisplayMD2Interpolate(RUN_START, RUN_END, ANIM_SPEED);
+		DisplayMD2Interpolate(RUN_START, RUN_END, 0.09f);
 	}
 	else
 	{
 		firstTime = true;
-		DisplayMD2Interpolate(NOT_MOVING_START, NOT_MOVING_END, ANIM_SPEED);
+		DisplayMD2Interpolate(0, 39, 0.01);
 	}
 }
 

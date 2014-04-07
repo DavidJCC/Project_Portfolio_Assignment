@@ -30,11 +30,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					PostQuitMessage(0);
 					break;
 				case VK_SPACE:
+<<<<<<< HEAD
 					if(g_Game.player->getBBRender())
 						g_Game.player->setBBRender(false);
 					else
 						g_Game.player->setBBRender(true);
 					
+=======
+>>>>>>> parent of b1490d3... Skybox textures fixed (need to fix rotation)
 					break;
 				case VK_L:
 					if(g_Game.drawLight)

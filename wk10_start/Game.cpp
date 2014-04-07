@@ -9,8 +9,7 @@ Game::Game(void)
 	toZ = camZ = -(float)(MAP_Z*MAP_SCALE) / 2.0f;
 	camRad = 250.0f;
 	fCount = 0;
-	picking = false;
-	lightSwitch(true);
+	picking = drawLight = false;
 }
 
 //
@@ -110,10 +109,10 @@ void Game::Initialise()
 	gluQuadricNormals(lSphere, GLU_NONE);
 
 	//controls the cursor
-	POINT p;
-	p.x = SCRN_W/2; p.y = SCRN_H/2;
-	ClientToScreen(hWnd, &p);
-	SetCursorPos(p.x, p.y);
+	//POINT p;
+	//p.x = SCRN_W/2; p.y = SCRN_H/2;
+	//ClientToScreen(hWnd, &p);
+	//SetCursorPos(p.x, p.y);
 }
 
 void Game::Shutdown()
@@ -141,8 +140,11 @@ void Game::Update()
 	toX = player->getPos().x; toY = player->getPos().y; toZ = player->getPos().z;
 	player->update(tbf);
 	CameraPos();
+
+	//SetPhysicalCursorPos(400,300);
 }
 
+<<<<<<< HEAD
 void Game::drawLightSource()
 {
 	glDisable(GL_TEXTURE_2D);
@@ -154,6 +156,18 @@ void Game::drawLightSource()
 		gluSphere(lSphere, 20.0f, 20, 12);
 	glPopMatrix();
 
+=======
+void Game::drawLightSource(){
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_LIGHTING);
+
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glPushMatrix();
+		glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
+		gluSphere(lSphere, 20.0f, 20, 12);
+	glPopMatrix();
+
+>>>>>>> parent of b1490d3... Skybox textures fixed (need to fix rotation)
 	glEnable(GL_LIGHTING);
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
 }
@@ -164,6 +178,10 @@ void Game::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
+<<<<<<< HEAD
+=======
+	skybox->draw(0, 0, 0,5000,5000,5000);
+>>>>>>> parent of b1490d3... Skybox textures fixed (need to fix rotation)
 	// set camera position 
 	useCamera();
 	skybox->draw(10.0f, camX, camY, camZ);
@@ -226,11 +244,15 @@ void Game::CameraPos()
 	float sinEW = sin(angEW);
 	float cosEW = cos(angEW);
 	// calculate the camera coordinate
+
 	camZ = toZ + camRad * sinNS * cosEW;
 	camY = toY + camRad * cosNS;
 	camX = toX + camRad * sinNS * sinEW;
 
-	constrainCam();
+	//if(camRad < CAM_MIN)
+	//	camRad = CAM_MIN;
+	//if(camRad > CAM_MAX)
+	//	camRad = CAM_MAX;
 }
 
 void Game::useCamera()
@@ -274,6 +296,7 @@ Vector Game::unProject()
 	return Vector(fx, fy, fz);
 }
 
+<<<<<<< HEAD
 void Game::constrainCam()
 {
 	if(camRad < CAM_MIN)
@@ -284,5 +307,7 @@ void Game::constrainCam()
 
 
 
+=======
+>>>>>>> parent of b1490d3... Skybox textures fixed (need to fix rotation)
 
 
