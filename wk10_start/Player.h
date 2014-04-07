@@ -30,8 +30,9 @@ public:
 	std::string getName() { return this->name; }
 	void setHealth(int health) { this->health += health; }
 	int getHealth() { return this->health; }
-
 	void setPlayerMoving(bool setWalking){ isWalking = setWalking; }
+	void setSprinting(bool setSprinting) { isSprinting = setSprinting; }
+	void setJumping(bool setJumping) { isJumping = setJumping; }
 
 	void setPos(float x, float y, float z);
 	void setVel(float x, float y, float z);

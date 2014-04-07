@@ -52,12 +52,12 @@ void Player::animate()
 		if(firstTime)
 			this->myModel->interpol = 0.0;
 		firstTime = false;
-		DisplayMD2Interpolate(RUN_START, RUN_END, 0.09f);
+		DisplayMD2Interpolate(RUN_START, RUN_END, ANIM_SPEED);
 	}
 	else
 	{
 		firstTime = true;
-		DisplayMD2Interpolate(0, 39, 0.01);
+		DisplayMD2Interpolate(NOT_MOVING_START, NOT_MOVING_END, ANIM_SPEED);
 	}
 }
 

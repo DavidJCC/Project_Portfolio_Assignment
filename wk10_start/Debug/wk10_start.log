@@ -1,21 +1,23 @@
-﻿Build started 07/04/2014 16:03:05.
+﻿Build started 07/04/2014 17:13:33.
      1>Project "C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\wk10_start\wk10_start.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp Main.cpp
-         Main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp Main.cpp Skybox.cpp
          Game.cpp
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(32): warning C4244: 'initializing' : conversion from 'scalar_t' to 'int', possible loss of data
      1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(33): warning C4244: 'initializing' : conversion from 'scalar_t' to 'int', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(60): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(78): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(78): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(78): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(209): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(246): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(268): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(268): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(268): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(34): warning C4244: 'initializing' : conversion from 'scalar_t' to 'int', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(61): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(79): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(79): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(79): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(212): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(245): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(267): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(267): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(267): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
          Generating Code...
+         Skipping... (no relevant changes detected)
+         Skybox.cpp
+         Main.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.exe" /INCREMENTAL:NO /NOLOGO opengl32.lib glu32.lib odbc32.lib odbccp32.lib winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\wk10_start.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.lib" /MACHINE:X86 Debug\AABB3.obj
          Debug\BaseGame.obj
@@ -36,4 +38,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.58
+Time Elapsed 00:00:00.99

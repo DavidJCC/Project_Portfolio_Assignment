@@ -63,57 +63,16 @@ public:
 	Game(void);
 	virtual ~Game(void);
 
-	/**
-	This is executed just once and is used to perform any first time
-	initialisation of the OpenGL environment. 
-	*/
+	void setLighting(bool l) { drawLight = l; }
+
 	void InitOpenGL();
-
-	/**
-	Use this method to create timers, fonts and all game objects. Do NOT 
-	execute any OpenGL commands in this method used initOpenGL instead.
-	*/
 	void Initialise();
-
-	/**
-	Use this method to perform any clean up of objects created for 
-	the game -including fonts and timers.
-	*/
 	void Shutdown();
-
-	/**
-	Use this method to create any game objects and initialise the
-	game's state
-	*/
 	bool InitGame();
-
-	/**
-	Use this method to update the games state but do not use for 
-	rendering
-	*/
 	void Game::Update();
-
-	/**
-	The nain rendering method - renders a single frame
-	*/
 	void Game::Render();
-
-
-	/**
-	This method is used to provide a 'haed up display' for showing
-	various game statistics, primarily FPS
-	*/
 	void RenderHUD();
-
-	/**
-	Used to update the camera position based on the mouse position
-	*/
 	void CameraPos();
-
-	/**
-	Sets the look at vector for the camera. Could enhanced to deal
-	with multiple cameras.
-	*/
 	void useCamera();
 
 	void setCubeRenderMode(char mode);
@@ -127,4 +86,5 @@ public:
 	void renderPlayer();
 	Vector unProject();
 	void constrainCam();
+	void lightSwitch(bool lSwitch);
 };

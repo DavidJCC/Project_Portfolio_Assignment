@@ -30,12 +30,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					PostQuitMessage(0);
 					break;
 				case VK_SPACE:
+					g_Game.player->setJumping(true);
 					break;
 				case VK_L:
 					if(g_Game.drawLight)
-						g_Game.drawLight = false;
+						g_Game.lightSwitch(false);
 					else
-						g_Game.drawLight = true;
+						g_Game.lightSwitch(false);
 					break;
 				case VK_W:
 					g_Game.player->setVel(200, 0, 0);

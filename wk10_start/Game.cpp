@@ -9,7 +9,8 @@ Game::Game(void)
 	toZ = camZ = -(float)(MAP_Z*MAP_SCALE) / 2.0f;
 	camRad = 250.0f;
 	fCount = 0;
-	picking = drawLight = false;
+	picking = false;
+	lightSwitch(true);
 }
 
 //
@@ -107,10 +108,10 @@ void Game::Initialise(){
 	gluQuadricNormals(lSphere, GLU_NONE);
 
 	//controls the cursor
-	//POINT p;
-	//p.x = SCRN_W/2; p.y = SCRN_H/2;
-	//ClientToScreen(hWnd, &p);
-	//SetCursorPos(p.x, p.y);
+	POINT p;
+	p.x = SCRN_W/2; p.y = SCRN_H/2;
+	ClientToScreen(hWnd, &p);
+	SetCursorPos(p.x, p.y);
 }
 
 void Game::Shutdown(){
@@ -136,22 +137,24 @@ void Game::Update(){
 	toX = player->getPos().x; toY = player->getPos().y; toZ = player->getPos().z;
 	player->update(tbf);
 	CameraPos();
-
-	//SetPhysicalCursorPos(400,300);
 }
 
 void Game::drawLightSource(){
-	glDisable(GL_TEXTURE_2D);
-	glDisable(GL_LIGHTING);
 
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glPushMatrix();
-		glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
-		gluSphere(lSphere, 20.0f, 20, 12);
-	glPopMatrix();
+	if(drawLight)
+	{
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_LIGHTING);
 
-	glEnable(GL_LIGHTING);
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+		glColor3f(1.0f, 1.0f, 0.0f);
+		glPushMatrix();
+			glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
+			gluSphere(lSphere, 20.0f, 20, 12);
+		glPopMatrix();
+
+		glEnable(GL_LIGHTING);
+		glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+	}
 }
 
 // and now render the objects in their current state.
@@ -159,7 +162,7 @@ void Game::Render(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	skybox->draw(0, 0, 0,5000,5000,5000);
+	skybox->draw(50.0f);
 	// set camera position 
 	useCamera();
 	terrain->render();
@@ -219,15 +222,11 @@ void Game::CameraPos(){
 	float sinEW = sin(angEW);
 	float cosEW = cos(angEW);
 	// calculate the camera coordinate
-
 	camZ = toZ + camRad * sinNS * cosEW;
 	camY = toY + camRad * cosNS;
 	camX = toX + camRad * sinNS * sinEW;
 
-	//if(camRad < CAM_MIN)
-	//	camRad = CAM_MIN;
-	//if(camRad > CAM_MAX)
-	//	camRad = CAM_MAX;
+	constrainCam();
 }
 
 void Game::useCamera(){
@@ -267,6 +266,21 @@ Vector Game::unProject(){
 	gluUnProject((GLdouble)mouseX, (GLdouble)realy, 1.0, mvmatrix, projmatrix, viewport, &fx, 	&fy, &fz); //1.0 for FAR plane co-ordinates
 	return Vector(fx, fy, fz);
 }
+
+void Game::constrainCam()
+{
+	if(camRad < CAM_MIN)
+		camRad = CAM_MIN;
+	if(camRad > CAM_MAX)
+		camRad = CAM_MAX;
+}
+
+void Game::lightSwitch(bool lSwitch)
+{
+	
+}
+
+
 
 
 
