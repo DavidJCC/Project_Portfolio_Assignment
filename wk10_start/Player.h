@@ -33,12 +33,9 @@ public:
 	int getHealth() { return this->health; }
 
 	void setPlayerMoving(bool setWalking){ isWalking = setWalking; }
-<<<<<<< HEAD
 	void setSprinting(bool setSprinting) { isSprinting = setSprinting; }
 	void setBBRender(bool bbRender) { this->bbRender = bbRender; }
 	bool getBBRender() { return this->bbRender; }
-=======
->>>>>>> parent of b1490d3... Skybox textures fixed (need to fix rotation)
 
 	void setPos(float x, float y, float z);
 	void setVel(float x, float y, float z);
