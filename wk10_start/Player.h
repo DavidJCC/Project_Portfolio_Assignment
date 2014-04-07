@@ -7,14 +7,15 @@ class Player :	public MD2Model{
 	std::string name;
 	Vector position;
 	Vector velocity;
+	float playerSpeed;
 	int health;
 	int score;
 	int lives;
 	bool hasFlag;
 	bool firstTime;
 	bool isWalking;
-	bool isJumping;
 	bool isSprinting;
+	bool bbRender;
 	
 public:
 	Player(char* name, char* modelFile,  char* modelTexture, int x, int y, int z);
@@ -32,7 +33,8 @@ public:
 	int getHealth() { return this->health; }
 	void setPlayerMoving(bool setWalking){ isWalking = setWalking; }
 	void setSprinting(bool setSprinting) { isSprinting = setSprinting; }
-	void setJumping(bool setJumping) { isJumping = setJumping; }
+	void setBBRender(bool bbRender) { this->bbRender = bbRender; }
+	bool getBBRender() { return this->bbRender; }
 
 	void setPos(float x, float y, float z);
 	void setVel(float x, float y, float z);
@@ -40,7 +42,9 @@ public:
 	void move(float time);
 	void update(float time);
 
-	void animate();
+	void walkAnimation();
 	void render();
+
+	void rotate();
 };
 

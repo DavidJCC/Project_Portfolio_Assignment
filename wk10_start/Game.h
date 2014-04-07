@@ -86,5 +86,4 @@ public:
 	void renderPlayer();
 	Vector unProject();
 	void constrainCam();
-	void lightSwitch(bool lSwitch);
 };

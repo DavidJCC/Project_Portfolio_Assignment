@@ -30,21 +30,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					PostQuitMessage(0);
 					break;
 				case VK_SPACE:
-					g_Game.player->setJumping(true);
+					if(g_Game.player->getBBRender())
+						g_Game.player->setBBRender(false);
+					else
+						g_Game.player->setBBRender(true);
+					
 					break;
 				case VK_L:
 					if(g_Game.drawLight)
-						g_Game.lightSwitch(false);
+						g_Game.drawLight = false;
 					else
-						g_Game.lightSwitch(false);
+						g_Game.drawLight = true;
 					break;
 				case VK_W:
-					g_Game.player->setVel(200, 0, 0);
+					g_Game.player->setVel(WALK_SPD, 0, 0);
 					g_Game.player->setPlayerMoving(true);
 					break;
 				case VK_S:
+					g_Game.player->setVel(-WALK_SPD, 0, 0);
+					g_Game.player->setPlayerMoving(true);
 					break;
 				case VK_A:
+					g_Game.player->rotate();
 					break;
 				case VK_D:
 				default:
@@ -59,6 +66,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					g_Game.player->setPlayerMoving(false);
 					break;
 				case VK_S:
+					g_Game.player->setVel(0, 0, 0);
+					g_Game.player->setPlayerMoving(false);
 					break;
 				case VK_SPACE:
 					break;

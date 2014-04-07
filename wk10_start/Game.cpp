@@ -62,7 +62,8 @@ void Game::InitOpenGL()
 }
 
 
-void Game::Initialise(){
+void Game::Initialise()
+{
 	DebugOut("Game::Initialise being called");
 	font1 = new BFont(hDC, "Courier", 14);
 	timer = new Timer();
@@ -80,7 +81,8 @@ void Game::Initialise(){
 	player->alpha = 1.0f;
 
 	//enemies setup
-	for(int i = 0; i < NUM_OBJS; i++){
+	for(int i = 0; i < NUM_OBJS; i++)
+	{
 		npc[i] = new MD2Model();
 		npc[i]->LoadMD2Model("Data/pknight/pknight.md2", "Data/pknight/pknight.bmp");
 		npc[i]->pos = Vector(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f));
@@ -114,7 +116,8 @@ void Game::Initialise(){
 	SetCursorPos(p.x, p.y);
 }
 
-void Game::Shutdown(){
+void Game::Shutdown()
+{
 	DebugOut("Game::Shutdown being called");
 	delete font1;
 	delete timer;
@@ -124,7 +127,8 @@ void Game::Shutdown(){
 	DebugOut("TERMINATED");
 }
 
-void Game::Update(){
+void Game::Update()
+{
 	cft = timer->getElapsedTime();
 	tbf = cft - lft;
 	lft = cft;
@@ -139,32 +143,30 @@ void Game::Update(){
 	CameraPos();
 }
 
-void Game::drawLightSource(){
+void Game::drawLightSource()
+{
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_LIGHTING);
 
-	if(drawLight)
-	{
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_LIGHTING);
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glPushMatrix();
+		glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
+		gluSphere(lSphere, 20.0f, 20, 12);
+	glPopMatrix();
 
-		glColor3f(1.0f, 1.0f, 0.0f);
-		glPushMatrix();
-			glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
-			gluSphere(lSphere, 20.0f, 20, 12);
-		glPopMatrix();
-
-		glEnable(GL_LIGHTING);
-		glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
-	}
+	glEnable(GL_LIGHTING);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
 }
 
 // and now render the objects in their current state.
-void Game::Render(){
+void Game::Render()
+{
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	skybox->draw(50.0f);
 	// set camera position 
 	useCamera();
+	skybox->draw(10.0f, camX, camY, camZ);
 	terrain->render();
 	if(drawLight)
 		drawLightSource();	
@@ -177,7 +179,8 @@ void Game::Render(){
 	fCount++;	// increment frame counter
 }
 
-void Game::RenderHUD(){
+void Game::RenderHUD()
+{
 	// Change to 2D view and use 1:1 pixel resolution with
 	// [0,0] origin being at the top-left corner.
 	Set2D(0, m_width, m_height, 0);
@@ -212,7 +215,8 @@ void Game::RenderHUD(){
 	Set3D(60, 0.1, 3000);
 }
 
-void Game::CameraPos(){
+void Game::CameraPos()
+{
 	// Map the mouse position to two angles
 	angNS = ((mouseY + 1) / m_height) * (float)M_PI;
 	angEW = (mouseX / m_width) * 2 * (float)M_PI;
@@ -229,11 +233,13 @@ void Game::CameraPos(){
 	constrainCam();
 }
 
-void Game::useCamera(){
+void Game::useCamera()
+{
 	gluLookAt(camX, camY, camZ, player->getPos().x, player->getPos().y, player->getPos().z, 0.0f, 1.0f, 0.0f);
 }
 
-void Game::renderPlayer(){
+void Game::renderPlayer()
+{
 	glEnable(GL_TEXTURE_2D);
 	glColor3f(1.0, 1.0, 1.0);
 
@@ -253,7 +259,8 @@ void Game::renderPlayer(){
   From current mouseX and mouseY, calc. where it would intersect near / far plane, as req’d.
   Function returns 3D pos, if a ray was directed from the curr. camera pos to the far plane.
 */
-Vector Game::unProject(){
+Vector Game::unProject()
+{
 	GLint viewport[4];
 	GLdouble mvmatrix[16], projmatrix[16], fx,fy,fz;
 
@@ -273,11 +280,6 @@ void Game::constrainCam()
 		camRad = CAM_MIN;
 	if(camRad > CAM_MAX)
 		camRad = CAM_MAX;
-}
-
-void Game::lightSwitch(bool lSwitch)
-{
-	
 }
 
 
