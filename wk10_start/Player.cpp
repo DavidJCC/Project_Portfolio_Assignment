@@ -1,21 +1,22 @@
 #include "Player.h"
 #include "DebugPrint.h"
 
-Player::Player(char* modelFile, char* modelTexture, int x, int y, int z) : MD2Model()
+Player::Player(char* name, char* modelFile, char* modelTexture, int x, int y, int z) : MD2Model()
 {
-	score = 0;
-	lives = 3;
-	hasFlag = false;
-	isMoving = false;
+	this->name = name;
 	LoadMD2Model(modelFile, modelTexture);
 	pos.x = x;
 	pos.y = y;
 	pos.z = z;
+	health = 100;
+	score = 0;
+	lives = 3;
+	hasFlag = isJumping = isSprinting = isWalking = false;
 	firstTime = true;
-	bbSwitch = false;
 }
 
-Player::~Player(void){
+Player::~Player(void)
+{
 }
 
 void Player::setPos(float x, float y, float z)
@@ -39,18 +40,19 @@ void Player::move(float time)
 	pos.z += velocity.z * time;
 }
 
-void Player::update(float time){
+void Player::update(float time)
+{
 	move(time);
 }
 
 void Player::animate()
 {
-	if(isMoving)
+	if(isWalking)
 	{
 		if(firstTime)
 			this->myModel->interpol = 0.0;
 		firstTime = false;
-		DisplayMD2Interpolate(RUN_START, RUN_END, 0.07f);
+		DisplayMD2Interpolate(RUN_START, RUN_END, 0.09f);
 	}
 	else
 	{
@@ -69,16 +71,4 @@ void Player::render()
 		animate();
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
-}
-
-std::string Player::getFlagStatus()
-{
-	if(this->hasFlag)
-	{
-		return "You have the flag";
-	}
-	else
-	{
-		return "You don't have the flag";
-	}
 }

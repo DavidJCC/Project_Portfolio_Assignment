@@ -57,8 +57,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					g_Game.player->setVel(0, 0, 0);
 					g_Game.player->setPlayerMoving(false);
 					break;
+				case VK_S:
+					break;
 				case VK_SPACE:
-					g_Game.player->switchBB(false);
 					break;
 				default:
 					break;

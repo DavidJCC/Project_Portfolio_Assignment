@@ -1,5 +1,5 @@
 #include "Game.h"
-
+#include <iostream>
 Game::Game(void)
 {
 	mouseX = mouseY = 0;
@@ -75,9 +75,8 @@ void Game::Initialise(){
 	skybox->loadTextures();
 
 	//player setup
-	player = new Player("Data/pknight/pknight.md2", "Data/pknight/pknight.bmp", 340.0f, 275.0f, -300.0f );
+	player = new Player("Player", "Data/pknight/pknight.md2", "Data/pknight/pknight.bmp", 340.0f, 275.0f, -300.0f );
 	player->alpha = 1.0f;
-	player->switchBB(false);
 
 	//enemies setup
 	for(int i = 0; i < NUM_OBJS; i++){

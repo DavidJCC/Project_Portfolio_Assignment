@@ -4,21 +4,34 @@
 #include <string>
 
 class Player :	public MD2Model{
-	Vector position, velocity;
+	std::string name;
+	Vector position;
+	Vector velocity;
+	int health;
 	int score;
 	int lives;
-	bool hasFlag, firstTime, isMoving, bbSwitch;
+	bool hasFlag;
+	bool firstTime;
+	bool isWalking;
+	bool isJumping;
+	bool isSprinting;
 	
 public:
-	Player(char* modelFile, char* modelTexture, int x, int y, int z);
+	Player(char* name, char* modelFile,  char* modelTexture, int x, int y, int z);
 	~Player(void);
 
-	int getScore() { return score; }
+	//setters and getters
+	bool getFlagStatus() { return this->hasFlag; }
+	int getScore() { return this->score; }
 	void setScore(int score) { this->score = score; }
-	int getLives() { return lives; }
+	int getLives() { return this->lives; }
 	void setLives() { this->lives = lives; }
+	void setName(std::string name) { this->name = name; }
+	std::string getName() { return this->name; }
+	void setHealth(int health) { this->health += health; }
+	int getHealth() { return this->health; }
 
-	void setPlayerMoving(bool setMoving){ isMoving = setMoving; }
+	void setPlayerMoving(bool setWalking){ isWalking = setWalking; }
 
 	void setPos(float x, float y, float z);
 	void setVel(float x, float y, float z);
@@ -28,7 +41,5 @@ public:
 
 	void animate();
 	void render();
-	void switchBB(bool bbSwitch) { this->bbSwitch = bbSwitch; }
-	std::string getFlagStatus();
 };
 

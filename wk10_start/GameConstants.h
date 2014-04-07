@@ -15,6 +15,8 @@ const int NUM_OBJS = 6;
 const float CAM_MAX = 200.0f;
 const float CAM_MIN = 100.0f;
 
-//animation frames
+//player
+const float WALK_SPD = 200.0f;
+const float SPRINT_SPD = 300.0f;
 const int RUN_START = 40;
 const int RUN_END = 46;
