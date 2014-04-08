@@ -1,45 +1,27 @@
-﻿Build started 08/04/2014 11:18:01.
-     1>Project "C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\wk10_start\wk10_start.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 08/04/2014 12:03:03.
+     1>Project "C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\wk10_start\wk10_start.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt AABB3.cpp BaseGame.cpp BFont.cpp Cube3D.cpp Game.cpp LoadTextures.cpp Main.cpp MD2Model.cpp Player.cpp Skybox.cpp Terrain.cpp
-         Terrain.cpp
-         Skybox.cpp
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\skybox.cpp(21): warning C4800: 'GLboolean' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\skybox.cpp(22): warning C4800: 'GLboolean' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\skybox.cpp(113): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371) : see declaration of 'sprintf'
-         Player.cpp
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\player.cpp(8): warning C4244: '=' : conversion from 'int' to 'scalar_t', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\player.cpp(9): warning C4244: '=' : conversion from 'int' to 'scalar_t', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\player.cpp(10): warning C4244: '=' : conversion from 'int' to 'scalar_t', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\player.cpp(66): warning C4305: 'argument' : truncation from 'double' to 'float'
-         MD2Model.cpp
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\md2model.cpp(75): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-         Main.cpp
-         LoadTextures.cpp
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\loadtextures.cpp(38): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\loadtextures.cpp(34): warning C4101: 'hBmp' : unreferenced local variable
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\loadtextures.cpp(77): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\loadtextures.cpp(73): warning C4101: 'hBmp' : unreferenced local variable
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp Main.cpp Player.cpp Terrain.cpp
          Game.cpp
      1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(32): warning C4244: 'initializing' : conversion from 'scalar_t' to 'int', possible loss of data
      1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(33): warning C4244: 'initializing' : conversion from 'scalar_t' to 'int', possible loss of data
      1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(60): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(79): warning C4244: 'argument' : conversion from 'const float' to 'int', possible loss of data
      1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(79): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(79): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(79): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(79): warning C4244: 'argument' : conversion from 'const float' to 'int', possible loss of data
      1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(216): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(256): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(279): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(279): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(279): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
-         Cube3D.cpp
-         BFont.cpp
-         BaseGame.cpp
-         AABB3.cpp
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(253): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(276): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(276): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(276): warning C4244: 'argument' : conversion from 'GLdouble' to 'scalar_t', possible loss of data
+         Generating Code...
+         Compiling...
+         Terrain.cpp
+         Player.cpp
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\player.cpp(8): warning C4244: '=' : conversion from 'int' to 'scalar_t', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\player.cpp(9): warning C4244: '=' : conversion from 'int' to 'scalar_t', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\player.cpp(10): warning C4244: '=' : conversion from 'int' to 'scalar_t', possible loss of data
+         Main.cpp
          Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.exe" /INCREMENTAL:NO /NOLOGO opengl32.lib glu32.lib odbc32.lib odbccp32.lib winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\wk10_start.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.lib" /MACHINE:X86 Debug\AABB3.obj
@@ -57,8 +39,8 @@
          wk10_start.vcxproj -> C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.exe
        Manifest:
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.exe;#1" /manifest Debug\wk10_start.exe.intermediate.manifest
-     1>Done Building Project "C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\wk10_start\wk10_start.vcxproj" (Rebuild target(s)).
+     1>Done Building Project "C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\wk10_start\wk10_start.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:05.80
+Time Elapsed 00:00:02.64

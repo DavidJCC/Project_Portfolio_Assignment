@@ -35,6 +35,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					else
 						g_Game.player->setBBRender(true);					
 					break;
+				case VK_SHIFT:
+						g_Game.player->setSprinting(true);
+					break;
 				case VK_L:
 					if(g_Game.drawLight)
 						g_Game.drawLight = false;
@@ -77,6 +80,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					g_Game.player->stopMoving();
 					break;
 				case VK_SPACE:
+					break;
+				case VK_SHIFT:
+						g_Game.player->setSprinting(false);
 					break;
 				default:
 					break;

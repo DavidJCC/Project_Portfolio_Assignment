@@ -35,9 +35,16 @@ void Player::setVel(float x, float y, float z)
 
 void Player::move(float time)
 {
-	pos.x += velocity.x * time;
-	pos.y += velocity.y * time;
-	pos.z += velocity.z * time;
+	if(isSprinting)
+	{
+		pos.x += velocity.x * time * SPRINT_MULT;
+		pos.y += velocity.y * time * SPRINT_MULT;
+		pos.z += velocity.z * time * SPRINT_MULT;
+	}
+	else
+		pos.x += velocity.x * time;
+		pos.y += velocity.y * time;
+		pos.z += velocity.z * time;
 }
 
 void Player::update(float time)
@@ -58,12 +65,12 @@ void Player::walkAnimation()
 		if(firstTime)
 			this->myModel->interpol = 0.0;
 		firstTime = false;
-		DisplayMD2Interpolate(RUN_START, RUN_END, 0.09f);
+		DisplayMD2Interpolate(RUN_START, RUN_END, ANIM_SPD);
 	}
 	else
 	{
 		firstTime = true;
-		DisplayMD2Interpolate(0, 39, 0.01);
+		DisplayMD2Interpolate(0, 39, ANIM_SPD);
 	}
 }
 

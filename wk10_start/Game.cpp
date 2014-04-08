@@ -76,7 +76,7 @@ void Game::Initialise()
 	skybox->loadTextures();
 
 	//player setup
-	player = new Player("Player", "Data/pknight/pknight.md2", "Data/pknight/pknight.bmp", 340.0f, 275.0f, -300.0f );
+	player = new Player("Player", "Data/pknight/pknight.md2", "Data/pknight/pknight.bmp", (MAP_X * MAP_SCALE * 0.9f)/2, 275.0f, (MAP_X * MAP_SCALE * 0.9f)/-2);
 	player->alpha = 1.0f;
 
 	//enemies setup
@@ -89,8 +89,8 @@ void Game::Initialise()
 	}
 
 	float matSpec[] = {0.0f, 1.0f, 0.0f, 1.0f };
-	float matShiny[] = {50.0 };  //128 is max value
-	lightPos[0]=100; lightPos[1]=1000; lightPos[2]= -500; lightPos[3]=1.0f;
+	float matShiny[] = {128.0f};  //128 is max value
+	lightPos[0]=((MAP_X * MAP_SCALE * 0.9f)/2); lightPos[1]=5000; lightPos[2]= ((MAP_X * MAP_SCALE * 0.9f)/-2); lightPos[3]=1.0f;
 	float whiteLight[] = {1.0f, 1.0f, 1.0f, 1.0f };
 	float ambLight[] = {0.1f, 0.1f, 0.1f, 1.0f };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, matSpec);
@@ -165,7 +165,7 @@ void Game::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	skybox->draw(20.0f, camX, -100, camZ);
+	skybox->draw(20.0f, camX, -100, -camZ);
 	// set camera position 
 	useCamera();
 	terrain->render();
@@ -213,7 +213,7 @@ void Game::RenderHUD()
 	font1->printString(4, 40, text);
 
 	// Set back to 3D
-	Set3D(60, 0.1, 3000);
+	Set3D(60, 0.1, 5000);
 }
 
 void Game::CameraPos()
@@ -232,10 +232,7 @@ void Game::CameraPos()
 	camY = toY + camRad * cosNS;
 	camX = toX + camRad * sinNS * sinEW;
 
-	//if(camRad < CAM_MIN)
-	//	camRad = CAM_MIN;
-	//if(camRad > CAM_MAX)
-	//	camRad = CAM_MAX;
+	constrainCam();
 }
 
 void Game::useCamera()
