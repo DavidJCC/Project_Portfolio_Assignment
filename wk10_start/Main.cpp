@@ -60,6 +60,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					g_Game.player->setVel(0 ,0, WALK_SPD);
 					g_Game.player->setPlayerMoving(true);
 					break;
+				case VK_F:
+					g_Game.player->rotate();
+					break;
 				default:
 					break;
 			}

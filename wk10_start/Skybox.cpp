@@ -13,7 +13,7 @@ void Skybox::init()
 {
 }
 
-void Skybox::draw(float size, float x, float y, float z)
+void Skybox::render(float size, float x, float y, float z)
 {
 	glPushMatrix();
 		glLoadIdentity();
@@ -24,6 +24,7 @@ void Skybox::draw(float size, float x, float y, float z)
 		glDisable(GL_DEPTH_TEST);	//turn off depth texting
 		glEnable(GL_TEXTURE_2D);	//and turn on texturing
 		glColor3f(1,1,1);
+
 		glBindTexture(GL_TEXTURE_2D,texture[SKY_BACK]);	//use the texture we want
 		glBegin(GL_QUADS);	//and draw a face
 			//back face

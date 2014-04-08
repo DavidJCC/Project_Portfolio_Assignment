@@ -1,10 +1,12 @@
 #include "Player.h"
 #include "DebugPrint.h"
 
-Player::Player(char* name, char* modelFile, char* modelTexture, int x, int y, int z) : MD2Model()
+Player::Player(char* name, int x, int y, int z) : MD2Model()
 {
 	this->name = name;
-	LoadMD2Model(modelFile, modelTexture);
+	modelFile = "Data/pknight/pknight.md2";
+	textureFile = "Data/pknight/pknight.bmp";
+	LoadMD2Model(modelFile, textureFile);
 	pos.x = x;
 	pos.y = y;
 	pos.z = z;
@@ -70,7 +72,7 @@ void Player::walkAnimation()
 	else
 	{
 		firstTime = true;
-		DisplayMD2Interpolate(0, 39, ANIM_SPD);
+		DisplayMD2Interpolate(IDLE_START, IDLE_END, ANIM_SPD);
 	}
 }
 
@@ -92,7 +94,7 @@ void Player::rotate()
 	glLoadIdentity();
 	glPushMatrix();
 		glTranslatef(0, pos.y, 0);
-		glRotatef(90.0f,0,1,0);
-		render();
+		glRotatef(90.0f,-1,0,0);
 	glPopMatrix();
+	render();
 }

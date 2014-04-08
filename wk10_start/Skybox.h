@@ -15,7 +15,7 @@ public:
 	~Skybox(void);
 
 	void init();
-	void draw(float size, float x, float y, float z);
+	void render(float size, float x, float y, float z);
 	void loadTextures();
 	void kill();
 };

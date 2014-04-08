@@ -76,7 +76,7 @@ void Game::Initialise()
 	skybox->loadTextures();
 
 	//player setup
-	player = new Player("Player", "Data/pknight/pknight.md2", "Data/pknight/pknight.bmp", (MAP_X * MAP_SCALE * 0.9f)/2, 275.0f, (MAP_X * MAP_SCALE * 0.9f)/-2);
+	player = new Player("Player", PLR_START_X, 275.0f, PLR_START_Z);
 	player->alpha = 1.0f;
 
 	//enemies setup
@@ -140,8 +140,6 @@ void Game::Update()
 	toX = player->getPos().x; toY = player->getPos().y; toZ = player->getPos().z;
 	player->update(tbf);
 	CameraPos();
-
-	//SetPhysicalCursorPos(400,300);
 }
 
 void Game::drawLightSource()
@@ -164,10 +162,10 @@ void Game::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-
-	skybox->draw(20.0f, camX, -100, -camZ);
 	// set camera position 
 	useCamera();
+	skybox->render(20.0f, camX, -100, -camZ);
+	
 	terrain->render();
 	if(drawLight)
 		drawLightSource();	
@@ -205,12 +203,12 @@ void Game::RenderHUD()
 	fps = 1.0f / tbf;
 	avgFps = fCount / cft;
 	// Print the statistics
-	sprintf_s(text, "  Score: %i Lives: %i Has Flag: ", player->getScore(), player->getLives());
-	font1->setColor(1.0f, 1.0f, 1.0f);
+	sprintf_s(text, "Score: %i   Lives: %i", player->getScore(), player->getLives());
 	font1->printString(4, 20, text);
-	sprintf_s(text, "%6.1f FPS  Time: %4.1f", avgFps, cft );
-	font1->setColor(1.0f, 1.0f, 1.0f);
+	sprintf_s(text, "Health: %i", player->getHealth());
 	font1->printString(4, 40, text);
+	sprintf_s(text, "%6.1f FPS", avgFps);
+	font1->printString(SCRN_W - 110, 20, text);
 
 	// Set back to 3D
 	Set3D(60, 0.1, 5000);

@@ -18,8 +18,21 @@ const float CAM_MIN = 100.0f;
 //player
 const float WALK_SPD = 200.0f;
 const float SPRINT_MULT = 2.0f;
+const float PLR_START_X = (MAP_X * MAP_SCALE * 0.9f)/2;
+const float PLR_START_Z = (MAP_X * MAP_SCALE * 0.9f)/-2;
 
 //player animation
+//animation speed
+const float ANIM_SPD = 0.1f;
+
+//idle
+const int IDLE_START = 0;
+const int IDLE_END = 39;
+
+//run
 const int RUN_START = 40;
 const int RUN_END = 46;
-const float ANIM_SPD = 0.1f;
+
+//jump
+const int JUMP_START = 67;
+const int JUMP_END = 73;

@@ -5,6 +5,8 @@
 
 class Player :	public MD2Model{
 	std::string name;
+	char* modelFile;
+	char* textureFile;
 	Vector velocity;
 	float playerSpeed;
 	int health;
@@ -17,7 +19,7 @@ class Player :	public MD2Model{
 	bool bbRender;
 	
 public:
-	Player(char* name, char* modelFile,  char* modelTexture, int x, int y, int z);
+	Player(char* name, int x, int y, int z);
 	~Player(void);
 
 	//setters and getters
