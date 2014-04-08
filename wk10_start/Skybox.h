@@ -15,11 +15,7 @@ public:
 	~Skybox(void);
 
 	void init();
-<<<<<<< HEAD
 	void draw(float size, float x, float y, float z);
-=======
-	void draw(float x, float y, float z, float width, float height, float length);
->>>>>>> parent of b1490d3... Skybox textures fixed (need to fix rotation)
 	void loadTextures();
 	void kill();
 };

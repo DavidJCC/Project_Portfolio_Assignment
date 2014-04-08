@@ -21,9 +21,9 @@ Player::~Player(void)
 
 void Player::setPos(float x, float y, float z)
 {
-	position.x = x;
-	position.y = y;
-	position.z = z;
+	pos.x = x;
+	pos.y = y;
+	pos.z = z;
 }
 
 void Player::setVel(float x, float y, float z)
@@ -43,6 +43,12 @@ void Player::move(float time)
 void Player::update(float time)
 {
 	move(time);
+}
+
+void Player::stopMoving()
+{
+	setVel(0, 0, 0);
+	setPlayerMoving(false);
 }
 
 void Player::walkAnimation()

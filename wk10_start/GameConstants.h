@@ -1,8 +1,8 @@
 #pragma once
 
 //game
-const int SCRN_W = 800;
-const int SCRN_H = 600;
+const int SCRN_W = 1024;
+const int SCRN_H = 720;
 
 const int MAP_X = 64;
 const int MAP_Z = 64;

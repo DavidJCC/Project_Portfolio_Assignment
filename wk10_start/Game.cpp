@@ -9,7 +9,7 @@ Game::Game(void)
 	toZ = camZ = -(float)(MAP_Z*MAP_SCALE) / 2.0f;
 	camRad = 250.0f;
 	fCount = 0;
-	picking = drawLight = false;
+	drawLight = true;
 }
 
 //
@@ -89,13 +89,13 @@ void Game::Initialise()
 	}
 
 	float matSpec[] = {0.0f, 1.0f, 0.0f, 1.0f };
-	float matShiny[] = {128.0f};  //128 is max value
+	float matShiny[] = {50.0 };  //128 is max value
+	lightPos[0]=100; lightPos[1]=1000; lightPos[2]= -500; lightPos[3]=1.0f;
+	float whiteLight[] = {1.0f, 1.0f, 1.0f, 1.0f };
+	float ambLight[] = {0.1f, 0.1f, 0.1f, 1.0f };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, matSpec);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec);
 	glMaterialfv(GL_FRONT, GL_SHININESS, matShiny);
-	lightPos[0]=100; lightPos[1]=400; lightPos[2]= -200; lightPos[3]=1.0f;
-	float whiteLight[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	float ambLight[] = { 0.1f, 0.1f, 0.1f, 1.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, whiteLight);
@@ -109,10 +109,10 @@ void Game::Initialise()
 	gluQuadricNormals(lSphere, GLU_NONE);
 
 	//controls the cursor
-	//POINT p;
-	//p.x = SCRN_W/2; p.y = SCRN_H/2;
-	//ClientToScreen(hWnd, &p);
-	//SetCursorPos(p.x, p.y);
+	POINT p;
+	p.x = SCRN_W/2; p.y = SCRN_H/2;
+	ClientToScreen(hWnd, &p);
+	SetCursorPos(p.x, p.y);
 }
 
 void Game::Shutdown()
@@ -144,7 +144,6 @@ void Game::Update()
 	//SetPhysicalCursorPos(400,300);
 }
 
-<<<<<<< HEAD
 void Game::drawLightSource()
 {
 	glDisable(GL_TEXTURE_2D);
@@ -156,18 +155,6 @@ void Game::drawLightSource()
 		gluSphere(lSphere, 20.0f, 20, 12);
 	glPopMatrix();
 
-=======
-void Game::drawLightSource(){
-	glDisable(GL_TEXTURE_2D);
-	glDisable(GL_LIGHTING);
-
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glPushMatrix();
-		glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
-		gluSphere(lSphere, 20.0f, 20, 12);
-	glPopMatrix();
-
->>>>>>> parent of b1490d3... Skybox textures fixed (need to fix rotation)
 	glEnable(GL_LIGHTING);
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
 }
@@ -178,13 +165,9 @@ void Game::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-<<<<<<< HEAD
-=======
-	skybox->draw(0, 0, 0,5000,5000,5000);
->>>>>>> parent of b1490d3... Skybox textures fixed (need to fix rotation)
+	skybox->draw(20.0f, camX, -100, camZ);
 	// set camera position 
 	useCamera();
-	skybox->draw(10.0f, camX, camY, camZ);
 	terrain->render();
 	if(drawLight)
 		drawLightSource();	
@@ -296,7 +279,6 @@ Vector Game::unProject()
 	return Vector(fx, fy, fz);
 }
 
-<<<<<<< HEAD
 void Game::constrainCam()
 {
 	if(camRad < CAM_MIN)
@@ -304,10 +286,5 @@ void Game::constrainCam()
 	if(camRad > CAM_MAX)
 		camRad = CAM_MAX;
 }
-
-
-
-=======
->>>>>>> parent of b1490d3... Skybox textures fixed (need to fix rotation)
 
 

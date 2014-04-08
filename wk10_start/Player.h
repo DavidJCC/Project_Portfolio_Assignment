@@ -5,7 +5,6 @@
 
 class Player :	public MD2Model{
 	std::string name;
-	Vector position;
 	Vector velocity;
 	float playerSpeed;
 	int health;
@@ -42,6 +41,7 @@ public:
 
 	void move(float time);
 	void update(float time);
+	void stopMoving();
 
 	void walkAnimation();
 	void render();

@@ -30,14 +30,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					PostQuitMessage(0);
 					break;
 				case VK_SPACE:
-<<<<<<< HEAD
 					if(g_Game.player->getBBRender())
 						g_Game.player->setBBRender(false);
 					else
-						g_Game.player->setBBRender(true);
-					
-=======
->>>>>>> parent of b1490d3... Skybox textures fixed (need to fix rotation)
+						g_Game.player->setBBRender(true);					
 					break;
 				case VK_L:
 					if(g_Game.drawLight)
@@ -54,9 +50,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					g_Game.player->setPlayerMoving(true);
 					break;
 				case VK_A:
-					g_Game.player->rotate();
+					g_Game.player->setVel(0, 0, -WALK_SPD);
+					g_Game.player->setPlayerMoving(true);
 					break;
 				case VK_D:
+					g_Game.player->setVel(0 ,0, WALK_SPD);
+					g_Game.player->setPlayerMoving(true);
+					break;
 				default:
 					break;
 			}
@@ -65,12 +65,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 			switch(wParam)	
 			{
 				case VK_W:
-					g_Game.player->setVel(0, 0, 0);
-					g_Game.player->setPlayerMoving(false);
+					g_Game.player->stopMoving();
 					break;
 				case VK_S:
-					g_Game.player->setVel(0, 0, 0);
-					g_Game.player->setPlayerMoving(false);
+					g_Game.player->stopMoving();
+					break;
+				case VK_A:
+					g_Game.player->stopMoving();
+					break;
+				case VK_D:
+					g_Game.player->stopMoving();
 					break;
 				case VK_SPACE:
 					break;
