@@ -29,11 +29,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 				case VK_ESCAPE:
 					PostQuitMessage(0);
 					break;
-				case VK_SPACE:
+				case VK_B:
 					if(g_Game.player->getBBRender())
 						g_Game.player->setBBRender(false);
 					else
-						g_Game.player->setBBRender(true);					
+						g_Game.player->setBBRender(true);	
+					break;
+				case VK_SPACE:
+					g_Game.player->setJumping(true);
 					break;
 				case VK_SHIFT:
 						g_Game.player->setSprinting(true);
@@ -46,22 +49,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					break;
 				case VK_W:
 					g_Game.player->setVel(WALK_SPD, 0, 0);
-					g_Game.player->setPlayerMoving(true);
+					g_Game.player->setWalking(true);
 					break;
 				case VK_S:
+					g_Game.player->rotate(Vector(0, 0, 1));
 					g_Game.player->setVel(-WALK_SPD, 0, 0);
-					g_Game.player->setPlayerMoving(true);
+					g_Game.player->setWalking(true);
 					break;
 				case VK_A:
 					g_Game.player->setVel(0, 0, -WALK_SPD);
-					g_Game.player->setPlayerMoving(true);
+					g_Game.player->setWalking(true);
 					break;
 				case VK_D:
 					g_Game.player->setVel(0 ,0, WALK_SPD);
-					g_Game.player->setPlayerMoving(true);
+					g_Game.player->setWalking(true);
 					break;
 				case VK_F:
-					g_Game.player->rotate();
 					break;
 				default:
 					break;
@@ -83,9 +86,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					g_Game.player->stopMoving();
 					break;
 				case VK_SPACE:
+					g_Game.player->setJumping(false);
 					break;
 				case VK_SHIFT:
-						g_Game.player->setSprinting(false);
+					g_Game.player->setSprinting(false);
 					break;
 				default:
 					break;
@@ -110,7 +114,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 				g_Game.camRad *= 1.1f;
 			else
 				g_Game.camRad /= 1.1f;
-			//g_Game.CameraPos();
 		break;
 		case WM_LBUTTONDOWN:
 		break;

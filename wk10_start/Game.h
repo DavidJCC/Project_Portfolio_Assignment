@@ -45,8 +45,7 @@ private:
 	unsigned int fCount;
 
 	Cube3D* cube;
-	float toX, toY, toZ, offset;
-	//unsigned int land;
+	float toX, toY, toZ;
 
 	float lightPos[4];
 	GLUquadricObj * lSphere;

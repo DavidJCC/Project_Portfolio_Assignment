@@ -1,11 +1,11 @@
-﻿Build started 08/04/2014 13:45:22.
+﻿Build started 09/04/2014 19:38:22.
      1>Project "C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\wk10_start\wk10_start.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Player.cpp
          Player.cpp
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\player.cpp(10): warning C4244: '=' : conversion from 'int' to 'scalar_t', possible loss of data
      1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\player.cpp(11): warning C4244: '=' : conversion from 'int' to 'scalar_t', possible loss of data
      1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\player.cpp(12): warning C4244: '=' : conversion from 'int' to 'scalar_t', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\player.cpp(13): warning C4244: '=' : conversion from 'int' to 'scalar_t', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.exe" /INCREMENTAL:NO /NOLOGO opengl32.lib glu32.lib odbc32.lib odbccp32.lib winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\wk10_start.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.lib" /MACHINE:X86 Debug\AABB3.obj
          Debug\BaseGame.obj
@@ -26,4 +26,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.92
+Time Elapsed 00:00:00.91

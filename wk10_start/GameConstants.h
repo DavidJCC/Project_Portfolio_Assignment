@@ -17,7 +17,7 @@ const float CAM_MIN = 100.0f;
 
 //player
 const float WALK_SPD = 200.0f;
-const float SPRINT_MULT = 2.0f;
+const float SPRINT_MULT = 1.5f;
 const float PLR_START_X = (MAP_X * MAP_SCALE * 0.9f)/2;
 const float PLR_START_Z = (MAP_X * MAP_SCALE * 0.9f)/-2;
 
@@ -34,5 +34,5 @@ const int RUN_START = 40;
 const int RUN_END = 46;
 
 //jump
-const int JUMP_START = 67;
+const int JUMP_START = 66;
 const int JUMP_END = 73;

@@ -5,7 +5,7 @@ Game::Game(void)
 	mouseX = mouseY = 0;
 	toX = camX = (float)(MAP_X*MAP_SCALE) / 2.0f;
 	toY = 255.0f;
-	camY = 400.0f;
+	camY = 200.0f;
 	toZ = camZ = -(float)(MAP_Z*MAP_SCALE) / 2.0f;
 	camRad = 250.0f;
 	fCount = 0;
@@ -88,11 +88,11 @@ void Game::Initialise()
 		npc[i]->alpha = 1.0f;
 	}
 
-	float matSpec[] = {0.0f, 1.0f, 0.0f, 1.0f };
-	float matShiny[] = {128.0f};  //128 is max value
-	lightPos[0]=((MAP_X * MAP_SCALE * 0.9f)/2); lightPos[1]=5000; lightPos[2]= ((MAP_X * MAP_SCALE * 0.9f)/-2); lightPos[3]=1.0f;
-	float whiteLight[] = {1.0f, 1.0f, 1.0f, 1.0f };
-	float ambLight[] = {0.1f, 0.1f, 0.1f, 1.0f };
+	float matSpec[] = {1.0f, 1.0f, 1.0f, 1.0f };
+	float matShiny[] = {5.0f};  //128 is max value
+	lightPos[0]=player->getPos().x; lightPos[1]=player->getPos().y+5; lightPos[2]= player->getPos().z; lightPos[3]=1.0f; //attach lightsource to player to mimic torch
+	float whiteLight[] = { 0.5f, 0.5f, 0.7f, 1.0f };
+	float ambLight[] = { 1.0f, 0.0f, 0.0f, 1.0f };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, matSpec);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec);
 	glMaterialfv(GL_FRONT, GL_SHININESS, matShiny);
@@ -140,6 +140,8 @@ void Game::Update()
 	toX = player->getPos().x; toY = player->getPos().y; toZ = player->getPos().z;
 	player->update(tbf);
 	CameraPos();
+
+	lightPos[0]=player->getPos().x; lightPos[1]=player->getPos().y+30; lightPos[2]= player->getPos().z; lightPos[3]=1.0f;
 }
 
 void Game::drawLightSource()
@@ -150,7 +152,7 @@ void Game::drawLightSource()
 	glColor3f(1.0f, 1.0f, 0.0f);
 	glPushMatrix();
 		glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
-		gluSphere(lSphere, 20.0f, 20, 12);
+		//gluSphere(lSphere, 20.0f, 20, 12);
 	glPopMatrix();
 
 	glEnable(GL_LIGHTING);
@@ -160,17 +162,18 @@ void Game::drawLightSource()
 // and now render the objects in their current state.
 void Game::Render()
 {
+	//glEnable(GL_LIGHTING);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	// set camera position 
 	useCamera();
 	skybox->render(20.0f, camX, -100, -camZ);
-	
-	terrain->render();
 	if(drawLight)
 		drawLightSource();	
+	
+	terrain->render();
 	player->render();
-	renderPlayer();
+	//renderPlayer();
 	// Display statistics
 	RenderHUD();
 
@@ -190,7 +193,7 @@ void Game::RenderHUD()
 	// Semi transparent background for frame rate stats
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glColor4f(0.0f, 0.0f, 0.9f, 1.0f);
+	glColor4f(0.0f, 0.0f, 0.0f, 0.5f);
 	glBegin(GL_QUADS);
 		glVertex2f(0,0);
 		glVertex2f(0,50);
@@ -203,7 +206,7 @@ void Game::RenderHUD()
 	fps = 1.0f / tbf;
 	avgFps = fCount / cft;
 	// Print the statistics
-	sprintf_s(text, "Score: %i   Lives: %i", player->getScore(), player->getLives());
+	sprintf_s(text, "Score: %f   Lives: %i", camY, player->getLives());
 	font1->printString(4, 20, text);
 	sprintf_s(text, "Health: %i", player->getHealth());
 	font1->printString(4, 40, text);
@@ -224,8 +227,8 @@ void Game::CameraPos()
 	float cosNS = cos(angNS);
 	float sinEW = sin(angEW);
 	float cosEW = cos(angEW);
-	// calculate the camera coordinate
 
+	// calculate the camera coordinate
 	camZ = toZ + camRad * sinNS * cosEW;
 	camY = toY + camRad * cosNS;
 	camX = toX + camRad * sinNS * sinEW;
@@ -235,23 +238,23 @@ void Game::CameraPos()
 
 void Game::useCamera()
 {
-	gluLookAt(camX, camY, camZ, player->getPos().x, player->getPos().y, player->getPos().z, 0.0f, 1.0f, 0.0f);
+	gluLookAt(camX, camY, camZ, toX, toY, toZ, 0.0f, 1.0f, 0.0f);
 }
 
-void Game::renderPlayer()
-{
-	glEnable(GL_TEXTURE_2D);
-	glColor3f(1.0, 1.0, 1.0);
-
-	for(int i = 0; i < NUM_OBJS; i++){
-		glPushMatrix();
-			glTranslatef(npc[i]->pos.x, npc[i]->pos.y, npc[i]->pos.z);
-			//npc[i]->bb.render();
-			glRotatef(90.0f, -1.0f, 0.0f, 0.0f);
-			npc[i]->DisplayMD2Interpolate(0, 197, 0.07);
-		glPopMatrix();
-	}
-}
+//void Game::renderPlayer()
+//{
+//	glEnable(GL_TEXTURE_2D);
+//	glColor3f(1.0, 1.0, 1.0);
+//
+//	for(int i = 0; i < NUM_OBJS; i++){
+//		glPushMatrix();
+//			glTranslatef(npc[i]->pos.x, npc[i]->pos.y, npc[i]->pos.z);
+//			//npc[i]->bb.render();
+//			glRotatef(90.0f, -1.0f, 0.0f, 0.0f);
+//			npc[i]->DisplayMD2Interpolate(0, 197, 0.07);
+//		glPopMatrix();
+//	}
+//}
 
 /*
   UnProject Based on Ch. 3 in OpenGL red book.
