@@ -6,16 +6,16 @@ using namespace timer;
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-#include "cube3d.h"
 #include "DebugPrint.h"
 #include "Ackley.h"
 #include "LoadTextures.h"
-#include "Player.h"
+#include "Entity.h"
 #include "MD2Model.h"
-#include "Object.h"
+#include "Player.h"
 #include "Skybox.h"
 #include "GameConstants.h"
 #include "Terrain.h"
+#include <vector>
 
 #include "random.h"
 using namespace random;
@@ -44,19 +44,21 @@ private:
 	float cft, lft, tbf, fps, avgFps;
 	unsigned int fCount;
 
-	Cube3D* cube;
 	float toX, toY, toZ;
 
 	float lightPos[4];
 	GLUquadricObj * lSphere;
 
-	Player* player;
-	MD2Model* npc[NUM_OBJS];
+	Entity* player;
+	Entity* npc[NUM_ZOMBIES];
 	bool objSelected, picking, drawLight;
 	int objectPicked;
 
 	Skybox* skybox;
 	Terrain* terrain;
+
+	// -- STORES THE MD2Model entities to make updating and rendering easier -- /
+	std::vector<Entity*>entities;
 public:
 
 	Game(void);
@@ -115,12 +117,11 @@ public:
 	*/
 	void useCamera();
 
-	void setCubeRenderMode(char mode);
 	void loadAckley();
 	void InitialiseTerrain();
 	void renderTerrain();
 	float calcY(float x, float z, Vector p1, Vector p2, Vector p3);
-	void calcYFromCubeCtr(Object *c, float halfHeight);
+	void calcYFromCubeCtr(Entity *c, float halfHeight);
 	Vector calcAvgNormal(int x, int z);
 	void drawLightSource();
 	void renderPlayer();

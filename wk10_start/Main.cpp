@@ -64,8 +64,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					g_Game.player->setVel(0 ,0, WALK_SPD);
 					g_Game.player->setWalking(true);
 					break;
-				case VK_F:
-					break;
 				default:
 					break;
 			}

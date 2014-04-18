@@ -26,7 +26,7 @@ float Game::calcY(float x, float z, Vector p1, Vector p2, Vector p3)
 	return (a*x - a*p1.x + b*p1.y + c*z - c*p1.z) / b; //y value
 }
 
-void Game::calcYFromCubeCtr(Object *c, float halfHeight)
+void Game::calcYFromCubeCtr(Entity *c, float halfHeight)
 {
 	float ltx, ltz, rtx, rtz;  //for left triangle & right triangle
 	int xi1 = c->getPos().x/MAP_SCALE;  //calc left triangle array coords
@@ -47,7 +47,7 @@ void Game::calcYFromCubeCtr(Object *c, float halfHeight)
 		p2.x = rtx; p2.y = terrain->terrain[zi1 * MAP_Z + xi1 + 1]; p2.z = ltz;
 		p3.x = ltx; p3.y = terrain->terrain[(zi1+1) * MAP_Z + xi1]; p3.z = rtz;
 	}
-	c->getPos().y = calcY(c->getPos().x, c->getPos().z, p1, p2, p3) + halfHeight;
+	c->m_pos.y = calcY(c->getPos().x, c->getPos().z, p1, p2, p3) + halfHeight;
 }
 
 Game::~Game(void)
@@ -57,9 +57,8 @@ Game::~Game(void)
 void Game::InitOpenGL()
 {
 	DebugOut("Game::InitOpenGL being called");
-	Set3D(60, 0.1, 3000);
+	Set3D(VIEW_ANGLE, NEAR_CLIPPING, FAR_CLIPPING);
 }
-
 
 void Game::Initialise()
 {
@@ -76,16 +75,17 @@ void Game::Initialise()
 	skybox->loadTextures();
 
 	//player setup
-	player = new Player("Player", PLR_START_X, 275.0f, PLR_START_Z);
+	player = new Player(PLR_START_X, 275.0f, PLR_START_Z);
 	player->alpha = 1.0f;
+	entities.push_back(player);
 
 	//enemies setup
-	for(int i = 0; i < NUM_OBJS; i++)
+	for(int i = 0; i < NUM_ZOMBIES; i++)
 	{
-		npc[i] = new MD2Model();
+		npc[i] = new Entity(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f));
 		npc[i]->LoadMD2Model("Data/pknight/pknight.md2", "Data/pknight/pknight.bmp");
-		npc[i]->pos = Vector(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f));
 		npc[i]->alpha = 1.0f;
+		entities.push_back(npc[i]);
 	}
 
 	float matSpec[] = {1.0f, 1.0f, 1.0f, 1.0f };
@@ -131,14 +131,18 @@ void Game::Update()
 	cft = timer->getElapsedTime();
 	tbf = cft - lft;
 	lft = cft;
+
 	// Perform collision detection here
 
-	for(int i = 0; i < NUM_OBJS; i++)
+	for(int i = 0; i < NUM_ZOMBIES; i++)
 		calcYFromCubeCtr(npc[i], npc[i]->bb.ySize() / 2.0f);
 
 	calcYFromCubeCtr(player, player->bb.ySize()  / 2.0f);
 	toX = player->getPos().x; toY = player->getPos().y; toZ = player->getPos().z;
-	player->update(tbf);
+
+	for(int i = 0; i < entities.size(); i++)
+		entities[i]->update(tbf);
+
 	CameraPos();
 
 	lightPos[0]=player->getPos().x; lightPos[1]=player->getPos().y+30; lightPos[2]= player->getPos().z; lightPos[3]=1.0f;
@@ -152,7 +156,7 @@ void Game::drawLightSource()
 	glColor3f(1.0f, 1.0f, 0.0f);
 	glPushMatrix();
 		glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
-		//gluSphere(lSphere, 20.0f, 20, 12);
+		gluSphere(lSphere, 20.0f, 20, 12);
 	glPopMatrix();
 
 	glEnable(GL_LIGHTING);
@@ -167,13 +171,19 @@ void Game::Render()
 	glLoadIdentity();
 	// set camera position 
 	useCamera();
+
 	skybox->render(20.0f, camX, -100, -camZ);
+	terrain->render();
+
 	if(drawLight)
 		drawLightSource();	
 	
-	terrain->render();
-	player->render();
-	//renderPlayer();
+	/****************************************
+		RENDER ALL THE ENTITIES HERE
+	****************************************/
+	for(int i = 0; i < entities.size(); i++)
+		entities[i]->render();
+
 	// Display statistics
 	RenderHUD();
 
@@ -240,21 +250,6 @@ void Game::useCamera()
 {
 	gluLookAt(camX, camY, camZ, toX, toY, toZ, 0.0f, 1.0f, 0.0f);
 }
-
-//void Game::renderPlayer()
-//{
-//	glEnable(GL_TEXTURE_2D);
-//	glColor3f(1.0, 1.0, 1.0);
-//
-//	for(int i = 0; i < NUM_OBJS; i++){
-//		glPushMatrix();
-//			glTranslatef(npc[i]->pos.x, npc[i]->pos.y, npc[i]->pos.z);
-//			//npc[i]->bb.render();
-//			glRotatef(90.0f, -1.0f, 0.0f, 0.0f);
-//			npc[i]->DisplayMD2Interpolate(0, 197, 0.07);
-//		glPopMatrix();
-//	}
-//}
 
 /*
   UnProject Based on Ch. 3 in OpenGL red book.

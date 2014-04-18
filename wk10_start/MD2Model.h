@@ -9,28 +9,27 @@
 #include "LoadTextures.h"
 #include "Vector.h"
 #include "AABB3.h"
-#include "Object.h"
+//#include "Object.h"
 
-class MD2Model : public Object{
-protected:
-	modelData_t *myModel;
-	modelData_t *gunModel;
-	float interValue;
-public:
-	AABB3 bb;  //****added by SM for easy access
-	float alpha;
-	Vector pos;
-	Vector& getPos() { return pos; }
-	void render() {}
-	MD2Model();
-	~MD2Model();
-	modelData_t* LoadMD2Model(char *filename, char *textureName);
-	void DisplayMD2(int frameNum);
-	void DisplayMD2Interpolate();
-	void DisplayMD2Interpolate(int startFrame, int endFrame, float percent);
-private:
-	texture_t* LoadBMPTexture(char *filename);
-	void getTriPoints(modelData_t *model, int tIdx);
+class MD2Model// : public Object
+{
+	protected:
+		modelData_t *myModel;
+		modelData_t *gunModel;
+		float interValue;
+	public:
+		AABB3 bb;  //****added by SM for easy access
+		float alpha;
+		virtual void render() = 0;
+		MD2Model();
+		~MD2Model();
+		modelData_t* LoadMD2Model(char *filename, char *textureName);
+		void DisplayMD2(int frameNum);
+		void DisplayMD2Interpolate();
+		void DisplayMD2Interpolate(int startFrame, int endFrame, float percent);
+	private:
+		texture_t* LoadBMPTexture(char *filename);
+		void getTriPoints(modelData_t *model, int tIdx);
 };
 
 #endif
