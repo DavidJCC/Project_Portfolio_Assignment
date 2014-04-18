@@ -94,9 +94,11 @@
     <ClCompile Include="LoadTextures.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MD2Model.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB3.h" />
@@ -112,12 +114,14 @@
     <ClInclude Include="md2.h" />
     <ClInclude Include="MD2Model.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="vector.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

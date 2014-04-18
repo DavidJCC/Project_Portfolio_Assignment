@@ -5,6 +5,7 @@ Game::Game(void)
 	fCount = 0;
 	drawLight = true;
 	gameState = START;
+	font1 = NULL;
 }
 
 //
@@ -52,7 +53,7 @@ Game::~Game(void)
 void Game::InitOpenGL()
 {
 	DebugOut("Game::InitOpenGL being called");
-	Set3D(60, 0.1, 3000);
+	Set3D(VIEW_ANGLE, NEAR_CLIPPING, FAR_CLIPPING);
 }
 
 
@@ -64,7 +65,6 @@ void Game::Initialise()
 
 	//camera setup
 	cam = new Camera();
-
 	//terrain
 	terrain = new Terrain();
 	terrain->init("Images/terrain.bmp", "Images/rock.bmp");
@@ -74,39 +74,31 @@ void Game::Initialise()
 	skybox->loadTextures();
 
 	//player setup
-	player = new Player("Player", PLR_START_X, 275.0f, PLR_START_Z);
-	player->alpha = 1.0f;
-	entities.push_back(player);
+	player = new Player(PLR_START_X, 275.0f, PLR_START_Z, "Data/pknight/pknight.md2", "Data/pknight/pknight.bmp");
 
 	//enemies setup
 	for(int i = 0; i < NUM_ZOMBIES; i++)
-	{
-		npc[i] = new MD2Model();
-		npc[i]->LoadMD2Model("Data/pknight/pknight.md2", "Data/pknight/pknight.bmp");
-		npc[i]->pos = Vector(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f));
-		npc[i]->alpha = 1.0f;
-		entities.push_back(npc[i]);
-	}
+		zombies[i] = new Zombie(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f), "Data/pknight/pknight.md2", "Data/pknight/pknight.bmp");
 
-	float matSpec[] = {1.0f, 1.0f, 1.0f, 1.0f };
-	float matShiny[] = {5.0f};  //128 is max value
-	lightPos[0]=player->getPos().x; lightPos[1]=player->getPos().y+5; lightPos[2]= player->getPos().z; lightPos[3]=1.0f; //attach lightsource to player to mimic torch
-	float whiteLight[] = { 0.5f, 0.5f, 0.7f, 1.0f };
+	//float matSpec[] = {1.0f, 1.0f, 1.0f, 1.0f };
+	//float matShiny[] = {5.0f};  //128 is max value
+	lightPos[0]= 200; lightPos[1]=1000; lightPos[2]= 500; lightPos[3]=1.0f; //attach lightsource to player to mimic torch
+	//float whiteLight[] = { 0.5f, 0.5f, 0.7f, 0.0f };
 	float ambLight[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-	glMaterialfv(GL_FRONT, GL_AMBIENT, matSpec);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec);
-	glMaterialfv(GL_FRONT, GL_SHININESS, matShiny);
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, whiteLight);
+	//glMaterialfv(GL_FRONT, GL_AMBIENT, matSpec);
+	//glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec);
+	//glMaterialfv(GL_FRONT, GL_SHININESS, matShiny);
+	//glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+	//glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
+	//glLightfv(GL_LIGHT0, GL_SPECULAR, whiteLight);
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambLight);
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
-	lSphere = gluNewQuadric();	//to show where light pos is
-	gluQuadricDrawStyle(lSphere, GLU_FILL);
-	gluQuadricNormals(lSphere, GLU_NONE);
+	//lSphere = gluNewQuadric();	//to show where light pos is
+	//gluQuadricDrawStyle(lSphere, GLU_FILL);
+	//gluQuadricNormals(lSphere, GLU_NONE);
 
 	//controls the cursor
 	POINT p;
@@ -138,17 +130,22 @@ void Game::Update()
 	***********************************/
 	if(gameState == PLAYING)
 	{
-		// Perform collision detection here
-
-		for(int i = 0; i < NUM_ZOMBIES; i++)
-			calcYFromCubeCtr(npc[i], npc[i]->bb.ySize() / 2.0f);
+		// Perform collision detection here			
+		
+		//***UPDATE THE GAME OBJECTS**//
+		player->update(tbf);
 		calcYFromCubeCtr(player, player->bb.ySize()  / 2.0f);
 
+		for(int i = 0; i < NUM_ZOMBIES; i++)
+		{
+			calcYFromCubeCtr(zombies[i], zombies[i]->bb.ySize() / 2.0f);
+			zombies[i]->update(tbf);
+		}
+
 		cam->setToX(player->getPos().x); cam->setToY(player->getPos().y); cam->setToZ(player->getPos().z); 
-		player->update(tbf);
 		cam->CameraPos();
 
-		lightPos[0]=player->getPos().x; lightPos[1]=player->getPos().y+30; lightPos[2]= player->getPos().z; lightPos[3]=1.0f;
+		//lightPos[0]=player->getPos().x; lightPos[1]=player->getPos().y+30; lightPos[2]= player->getPos().z; lightPos[3]=1.0f;
 	}
 
 	/******************************************
@@ -183,7 +180,7 @@ void Game::Render()
 	glLoadIdentity();
 
 	/*********************************************************
-		IF GAME IS PLAYING RENDER OBJECTS, TERRAIN AND SKYBOX
+	IF GAME IS PLAYING RENDER OBJECTS, TERRAIN AND SKYBOX
 	*********************************************************/
 	if(gameState == PLAYING)
 	{
@@ -192,7 +189,13 @@ void Game::Render()
 		skybox->render( 20.0f, cam->getCamX(), -100, -cam->getCamZ() );		if(drawLight)	drawLightSource();	
 	
 		terrain->render();
+
 		player->render();
+
+		for(int i = 0; i < NUM_ZOMBIES; i++)
+		{
+			zombies[i]->render();
+		}
 	}
 
 	RenderHUD();
@@ -311,4 +314,14 @@ void Game::PrintInstructions()
 	font1->printString(SCRN_W/2-260, SCRN_H/2+40, text);
 	sprintf_s(text, "WASD - Move Player    SHIFT - SPRINT");
 	font1->printString(SCRN_W/2-170, SCRN_H/2+150, text);	
+}
+
+void Game::ProcessKeyDown(char* key)
+{
+	
+}
+
+void Game::ProcessKeyUp()
+{
+
 }

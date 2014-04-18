@@ -53,8 +53,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					break;
 				case VK_S:
 					g_Game.player->rotate(Vector(1, 0, 0));
-					//g_Game.player->setVel(-WALK_SPD, 0, 0);
-					//g_Game.player->setWalking(true);
+					g_Game.player->setVel(-WALK_SPD*0.5f, 0, 0);
+					g_Game.player->setWalking(true);
 					break;
 				case VK_A:
 					g_Game.player->setVel(0, 0, -WALK_SPD);
@@ -62,7 +62,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					break;
 				case VK_D:
 					g_Game.player->setVel(0 ,0, WALK_SPD);
-					g_Game.player->setWalking(true);
 					break;
 				case VK_F:
 					break;

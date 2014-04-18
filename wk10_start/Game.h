@@ -11,6 +11,7 @@ using namespace timer;
 #include "Ackley.h"
 #include "LoadTextures.h"
 #include "Player.h"
+#include "Zombie.h"
 #include "MD2Model.h"
 #include "Object.h"
 #include "Skybox.h"
@@ -50,15 +51,16 @@ private:
 	unsigned int fCount;
 
 	float lightPos[4];
-	GLUquadricObj * lSphere;
+	GLUquadricObj* lSphere;
 	Camera* cam;
 	Player* player;
-	MD2Model* npc[NUM_ZOMBIES];
+	Zombie* zombies[NUM_ZOMBIES];
 	bool objSelected, picking, drawLight;
 	int objectPicked;
 	Skybox* skybox;
 	Terrain* terrain;
-	std::vector<Object*>entities;
+
+	bool keys[256];
 public:
 
 	Game(void);
@@ -117,4 +119,6 @@ public:
 	void UpdateFps();
 	void PauseGame();
 	void PrintInstructions();
+	void ProcessKeyDown(char* key);
+	void ProcessKeyUp();
 };
