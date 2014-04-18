@@ -5,20 +5,29 @@
 using namespace timer;
 #define _USE_MATH_DEFINES
 #include <cmath>
-
+#include <vector>
+#include "cube3d.h"
 #include "DebugPrint.h"
 #include "Ackley.h"
 #include "LoadTextures.h"
-#include "Entity.h"
-#include "MD2Model.h"
 #include "Player.h"
+#include "MD2Model.h"
+#include "Object.h"
 #include "Skybox.h"
 #include "GameConstants.h"
 #include "Terrain.h"
-#include <vector>
+#include "Camera.h"
 
 #include "random.h"
 using namespace random;
+
+enum gameStates
+{
+	START = 0,
+	PLAYING,
+	PAUSED,
+	OVER
+};
 
 /**
 The class inherits from BaseGame and provides the game data model
@@ -32,33 +41,24 @@ class Game : public BaseGame{
 
 private:
 	// HERE WE DECLARE ANY FONTS, TIMERS OR OTHER VARIABLES WE WANT
-	float mouseX, mouseY;
-
-	float camX, camY, camZ, camRad;
-	float angEW, angNS;
-
 	BFont* font1;
 	char text[256];
 
+	int gameState;
 	Timer* timer;
 	float cft, lft, tbf, fps, avgFps;
 	unsigned int fCount;
 
-	float toX, toY, toZ;
-
 	float lightPos[4];
 	GLUquadricObj * lSphere;
-
-	Entity* player;
-	Entity* npc[NUM_ZOMBIES];
+	Camera* cam;
+	Player* player;
+	MD2Model* npc[NUM_ZOMBIES];
 	bool objSelected, picking, drawLight;
 	int objectPicked;
-
 	Skybox* skybox;
 	Terrain* terrain;
-
-	// -- STORES THE MD2Model entities to make updating and rendering easier -- /
-	std::vector<Entity*>entities;
+	std::vector<Object*>entities;
 public:
 
 	Game(void);
@@ -99,32 +99,22 @@ public:
 	*/
 	void Game::Render();
 
-
 	/**
 	This method is used to provide a 'haed up display' for showing
 	various game statistics, primarily FPS
 	*/
 	void RenderHUD();
 
-	/**
-	Used to update the camera position based on the mouse position
-	*/
-	void CameraPos();
-
-	/**
-	Sets the look at vector for the camera. Could enhanced to deal
-	with multiple cameras.
-	*/
-	void useCamera();
-
 	void loadAckley();
 	void InitialiseTerrain();
 	void renderTerrain();
 	float calcY(float x, float z, Vector p1, Vector p2, Vector p3);
-	void calcYFromCubeCtr(Entity *c, float halfHeight);
+	void calcYFromCubeCtr(Object *c, float halfHeight);
 	Vector calcAvgNormal(int x, int z);
 	void drawLightSource();
 	void renderPlayer();
 	Vector unProject();
-	void constrainCam();
+	void UpdateFps();
+	void PauseGame();
+	void PrintInstructions();
 };

@@ -2,14 +2,9 @@
 #include <iostream>
 Game::Game(void)
 {
-	mouseX = mouseY = 0;
-	toX = camX = (float)(MAP_X*MAP_SCALE) / 2.0f;
-	toY = 255.0f;
-	camY = 200.0f;
-	toZ = camZ = -(float)(MAP_Z*MAP_SCALE) / 2.0f;
-	camRad = 250.0f;
 	fCount = 0;
 	drawLight = true;
+	gameState = START;
 }
 
 //
@@ -26,7 +21,7 @@ float Game::calcY(float x, float z, Vector p1, Vector p2, Vector p3)
 	return (a*x - a*p1.x + b*p1.y + c*z - c*p1.z) / b; //y value
 }
 
-void Game::calcYFromCubeCtr(Entity *c, float halfHeight)
+void Game::calcYFromCubeCtr(Object *c, float halfHeight)
 {
 	float ltx, ltz, rtx, rtz;  //for left triangle & right triangle
 	int xi1 = c->getPos().x/MAP_SCALE;  //calc left triangle array coords
@@ -47,7 +42,7 @@ void Game::calcYFromCubeCtr(Entity *c, float halfHeight)
 		p2.x = rtx; p2.y = terrain->terrain[zi1 * MAP_Z + xi1 + 1]; p2.z = ltz;
 		p3.x = ltx; p3.y = terrain->terrain[(zi1+1) * MAP_Z + xi1]; p3.z = rtz;
 	}
-	c->m_pos.y = calcY(c->getPos().x, c->getPos().z, p1, p2, p3) + halfHeight;
+	c->getPos().y = calcY(c->getPos().x, c->getPos().z, p1, p2, p3) + halfHeight;
 }
 
 Game::~Game(void)
@@ -57,14 +52,18 @@ Game::~Game(void)
 void Game::InitOpenGL()
 {
 	DebugOut("Game::InitOpenGL being called");
-	Set3D(VIEW_ANGLE, NEAR_CLIPPING, FAR_CLIPPING);
+	Set3D(60, 0.1, 3000);
 }
+
 
 void Game::Initialise()
 {
 	DebugOut("Game::Initialise being called");
 	font1 = new BFont(hDC, "Courier", 14);
 	timer = new Timer();
+
+	//camera setup
+	cam = new Camera();
 
 	//terrain
 	terrain = new Terrain();
@@ -75,15 +74,16 @@ void Game::Initialise()
 	skybox->loadTextures();
 
 	//player setup
-	player = new Player(PLR_START_X, 275.0f, PLR_START_Z);
+	player = new Player("Player", PLR_START_X, 275.0f, PLR_START_Z);
 	player->alpha = 1.0f;
 	entities.push_back(player);
 
 	//enemies setup
 	for(int i = 0; i < NUM_ZOMBIES; i++)
 	{
-		npc[i] = new Entity(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f));
+		npc[i] = new MD2Model();
 		npc[i]->LoadMD2Model("Data/pknight/pknight.md2", "Data/pknight/pknight.bmp");
+		npc[i]->pos = Vector(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f));
 		npc[i]->alpha = 1.0f;
 		entities.push_back(npc[i]);
 	}
@@ -121,6 +121,9 @@ void Game::Shutdown()
 	delete font1;
 	delete timer;
 	delete terrain;
+	delete skybox;
+	delete cam;
+	entities.clear();
 	if(lSphere != NULL)
 		gluDeleteQuadric(lSphere);
 	DebugOut("TERMINATED");
@@ -128,24 +131,33 @@ void Game::Shutdown()
 
 void Game::Update()
 {
-	cft = timer->getElapsedTime();
-	tbf = cft - lft;
-	lft = cft;
+	UpdateFps();
 
-	// Perform collision detection here
+	/***********************************
+		IF GAME IS PLAYING UPDATE
+	***********************************/
+	if(gameState == PLAYING)
+	{
+		// Perform collision detection here
 
-	for(int i = 0; i < NUM_ZOMBIES; i++)
-		calcYFromCubeCtr(npc[i], npc[i]->bb.ySize() / 2.0f);
+		for(int i = 0; i < NUM_ZOMBIES; i++)
+			calcYFromCubeCtr(npc[i], npc[i]->bb.ySize() / 2.0f);
+		calcYFromCubeCtr(player, player->bb.ySize()  / 2.0f);
 
-	calcYFromCubeCtr(player, player->bb.ySize()  / 2.0f);
-	toX = player->getPos().x; toY = player->getPos().y; toZ = player->getPos().z;
+		cam->setToX(player->getPos().x); cam->setToY(player->getPos().y); cam->setToZ(player->getPos().z); 
+		player->update(tbf);
+		cam->CameraPos();
 
-	for(int i = 0; i < entities.size(); i++)
-		entities[i]->update(tbf);
+		lightPos[0]=player->getPos().x; lightPos[1]=player->getPos().y+30; lightPos[2]= player->getPos().z; lightPos[3]=1.0f;
+	}
 
-	CameraPos();
-
-	lightPos[0]=player->getPos().x; lightPos[1]=player->getPos().y+30; lightPos[2]= player->getPos().z; lightPos[3]=1.0f;
+	/******************************************
+			IF GAME IS OVER
+	*****************************************/
+	if(player->getHealth() == 0)
+	{
+		gameState = OVER;
+	}
 }
 
 void Game::drawLightSource()
@@ -156,7 +168,7 @@ void Game::drawLightSource()
 	glColor3f(1.0f, 1.0f, 0.0f);
 	glPushMatrix();
 		glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
-		gluSphere(lSphere, 20.0f, 20, 12);
+		//gluSphere(lSphere, 20.0f, 20, 12);
 	glPopMatrix();
 
 	glEnable(GL_LIGHTING);
@@ -169,22 +181,20 @@ void Game::Render()
 	//glEnable(GL_LIGHTING);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	// set camera position 
-	useCamera();
 
-	skybox->render(20.0f, camX, -100, -camZ);
-	terrain->render();
-
-	if(drawLight)
-		drawLightSource();	
+	/*********************************************************
+		IF GAME IS PLAYING RENDER OBJECTS, TERRAIN AND SKYBOX
+	*********************************************************/
+	if(gameState == PLAYING)
+	{
+		// set camera position 
+		gluLookAt(cam->getCamX(), cam->getCamY(), cam->getCamZ(), cam->getToX(), cam->getToY(), cam->getToZ(), 0.0f, 1.0f, 0.0f);
+		skybox->render( 20.0f, cam->getCamX(), -100, -cam->getCamZ() );		if(drawLight)	drawLightSource();	
 	
-	/****************************************
-		RENDER ALL THE ENTITIES HERE
-	****************************************/
-	for(int i = 0; i < entities.size(); i++)
-		entities[i]->render();
+		terrain->render();
+		player->render();
+	}
 
-	// Display statistics
 	RenderHUD();
 
 	glFlush();
@@ -195,7 +205,7 @@ void Game::RenderHUD()
 {
 	// Change to 2D view and use 1:1 pixel resolution with
 	// [0,0] origin being at the top-left corner.
-	Set2D(0, m_width, m_height, 0);
+	Set2D(0, SCRN_W, SCRN_H, 0);
 	// Disable depth testing so the HUD will not be hidden
 	// by the 3D graphics
 	glDisable(GL_DEPTH_TEST);
@@ -212,72 +222,93 @@ void Game::RenderHUD()
 	glEnd();
 	glDisable(GL_BLEND);
 
+	// Print the statistics
+	if(gameState == START)
+	{
+		sprintf_s(text, "Welcome to the game");
+		font1->printString(SCRN_W/2-70, 20, text);
+		sprintf_s(text, "Press ENTER to continue");
+		font1->printString(SCRN_W/2-90, SCRN_H-100, text);
+		PrintInstructions();
+	}
+
+	if(gameState == PAUSED)
+	{
+		sprintf_s(text, "Game Paused");
+		font1->printString(SCRN_W/2-70, 20, text);
+		sprintf_s(text, "Press P to continue");
+		font1->printString(SCRN_W/2-90, SCRN_H-100, text);	
+	}
+
+
+	if(gameState == PLAYING)
+	{
+		sprintf_s(text, "Score: %f   Lives: %i", player->getScore(), player->getLives());
+		font1->printString(4, 20, text);
+		sprintf_s(text, "Health: %i", player->getHealth());
+		font1->printString(4, 40, text);
+		sprintf_s(text, "%6.1f FPS", avgFps);
+		font1->printString(SCRN_W - 110, 20, text);
+	}
+
+	if(gameState == OVER)
+	{
+		if(player->getHealth() < 1)
+		{
+			font1->printString(SCRN_W/2-70, 20, text);
+			sprintf_s(text, "You collected all the energy coils.");
+			font1->printString(SCRN_W/2-150, SCRN_H / 2, text);
+			sprintf_s(text, "You can now power your ship and go home!");
+			font1->printString(SCRN_W/2-175, SCRN_H / 2 + 20, text);
+		}
+		else
+		{
+			font1->printString(SCRN_W/2-50, 20, text);
+			sprintf_s(text, "You failed in your task and got killed.");
+			font1->printString(SCRN_W/2-170, SCRN_H / 2, text);
+			sprintf_s(text, "You are a failure, you don't deserve to go home.");
+			font1->printString(SCRN_W/2-195, SCRN_H / 2 + 20, text);
+		}
+		sprintf_s(text, "Game Over");
+		sprintf_s(text, "Press ESC to exit or ENTER to restart");
+		font1->printString(SCRN_W/2-150, SCRN_H-100, text);
+	}
+
+	// Set back to 3D
+	Set3D(VIEW_ANGLE, NEAR_CLIPPING, FAR_CLIPPING);
+}
+
+void Game::UpdateFps()
+{
+	cft = timer->getElapsedTime();
+	tbf = cft - lft;
+	lft = cft;
+
 	// Calc stats - FPS etc
 	fps = 1.0f / tbf;
 	avgFps = fCount / cft;
-	// Print the statistics
-	sprintf_s(text, "Score: %f   Lives: %i", camY, player->getLives());
-	font1->printString(4, 20, text);
-	sprintf_s(text, "Health: %i", player->getHealth());
-	font1->printString(4, 40, text);
-	sprintf_s(text, "%6.1f FPS", avgFps);
-	font1->printString(SCRN_W - 110, 20, text);
-
-	// Set back to 3D
-	Set3D(60, 0.1, 5000);
 }
 
-void Game::CameraPos()
+void Game::PauseGame()
 {
-	// Map the mouse position to two angles
-	angNS = ((mouseY + 1) / m_height) * (float)M_PI;
-	angEW = (mouseX / m_width) * 2 * (float)M_PI;
-	// Calculate the sines and cosines of these angle
-	float sinNS = sin(angNS);
-	float cosNS = cos(angNS);
-	float sinEW = sin(angEW);
-	float cosEW = cos(angEW);
-
-	// calculate the camera coordinate
-	camZ = toZ + camRad * sinNS * cosEW;
-	camY = toY + camRad * cosNS;
-	camX = toX + camRad * sinNS * sinEW;
-
-	constrainCam();
+	if(gameState == PAUSED)
+		gameState = PLAYING;
+	else
+		gameState = PAUSED;
 }
 
-void Game::useCamera()
+void Game::PrintInstructions()
 {
-	gluLookAt(camX, camY, camZ, toX, toY, toZ, 0.0f, 1.0f, 0.0f);
+	sprintf_s(text, "OBJECTIVE: You have crashed your ship in a canyon");
+	font1->printString(SCRN_W/2-220, SCRN_H/2-80, text);
+	sprintf_s(text, "on a distant planet and lost all of");
+	font1->printString(SCRN_W/2-170, SCRN_H/2-60, text);	
+	sprintf_s(text, "the ships energy coils. Go and find them.");
+	font1->printString(SCRN_W/2-170, SCRN_H/2-40, text);
+	sprintf_s(text, "Initial scans of planet show there are hostiles.");
+	font1->printString(SCRN_W/2-210, SCRN_H/2+20, text);
+	sprintf_s(text, "You have no weapons so avoid them or they'll eat your face.");
+	font1->printString(SCRN_W/2-260, SCRN_H/2+40, text);
+	sprintf_s(text, "WASD - Move Player    SHIFT - SPRINT");
+	font1->printString(SCRN_W/2-170, SCRN_H/2+150, text);	
 }
-
-/*
-  UnProject Based on Ch. 3 in OpenGL red book.
-  Note: they must be used AFTER the camera position has been set.
-  From current mouseX and mouseY, calc. where it would intersect near / far plane, as req’d.
-  Function returns 3D pos, if a ray was directed from the curr. camera pos to the far plane.
-*/
-Vector Game::unProject()
-{
-	GLint viewport[4];
-	GLdouble mvmatrix[16], projmatrix[16], fx,fy,fz;
-
-	GLint realy;    //OpenGL y coordinate position
-
-	glGetIntegerv (GL_VIEWPORT, viewport); //get viewport and transform matrices
-	glGetDoublev (GL_MODELVIEW_MATRIX, mvmatrix);
-	glGetDoublev (GL_PROJECTION_MATRIX, projmatrix);
-	realy = viewport[3]-(GLint)mouseY-1;  //viewport[3] is hgt of window in pixels
-	gluUnProject((GLdouble)mouseX, (GLdouble)realy, 1.0, mvmatrix, projmatrix, viewport, &fx, 	&fy, &fz); //1.0 for FAR plane co-ordinates
-	return Vector(fx, fy, fz);
-}
-
-void Game::constrainCam()
-{
-	if(camRad < CAM_MIN)
-		camRad = CAM_MIN;
-	if(camRad > CAM_MAX)
-		camRad = CAM_MAX;
-}
-
-
