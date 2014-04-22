@@ -4,10 +4,9 @@
 Entity::Entity(int x, int y, int z, char* modelFile, char* modelTex) : MD2Model()
 {
 	LoadMD2Model(modelFile, modelTex);
-	m_direction = 0.0f, 0.0f, 1.0f;
-	pos.x = x;
-	pos.y = y;
-	pos.z = z;
+	pos.x = x;	pos.y = y;	pos.z = z;
+	m_rotAxis = m_direction = Vector();
+	m_angle = 0.0f;
 	m_health = 100;
 	m_lives = 3;
 	m_bbRender = m_isMoving = m_isSprinting = m_isWalking = false;
@@ -76,32 +75,34 @@ void Entity::stopMoving()
 
 void Entity::rotate(Vector newDirection)
 {
-	m_direction.Normalize();
-	newDirection.Normalize();
+	float angle;
+	Vector v1, v2;
 
-	float angle = acos( m_direction.DotProduct( newDirection ) );
-	angle = angle * 180/M_PI; //convert to degrees
+	v1 = m_direction;
+	v2 = newDirection;
 
-	Vector rotAxis = m_direction.CrossProduct(newDirection);
-	rotAxis.Normalize();
+	v1.Normalize();
+	v2.Normalize();
 
-	//m_direction = rotAxis;
+	angle = v1.DotProduct(v2);
+	setAngle(acos(angle)*180/M_PI); //convert to degrees
+
+	setRotAxis( m_direction.CrossProduct(newDirection) );
 
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
-	glPushMatrix();
-		glTranslatef(pos.x, pos.y, pos.z);		
-		glRotatef(angle, rotAxis.x, rotAxis.y, pos.z);
+	glPushMatrix();	
+		glRotatef(m_angle, m_rotAxis.x, m_rotAxis.y, m_rotAxis.z);
 		render();
 	glPopMatrix();
 }
 
 void Entity::renderBB()
 {
-	if(getBBRender())
-		setBBRender(false);
+	if(m_bbRender)
+		m_bbRender = false;
 	else
-		setBBRender(true);
+		m_bbRender = true;
 }
 
 void Entity::keepOnMap()

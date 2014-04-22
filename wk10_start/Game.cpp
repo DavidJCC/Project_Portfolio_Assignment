@@ -44,6 +44,29 @@ void Game::calcYFromCubeCtr(Object *c, float halfHeight)
 		p3.x = ltx; p3.y = terrain->terrain[(zi1+1) * MAP_Z + xi1]; p3.z = rtz;
 	}
 	c->getPos().y = calcY(c->getPos().x, c->getPos().z, p1, p2, p3) + halfHeight;
+	calcNormalFrom3Points(p1, p2, p3);
+}
+
+void Game::calcNormalFrom3Points(Vector p1, Vector p2, Vector p3)
+{
+	Vector l1, l2, n1, n2, rotAxis, rotAngle;
+	l1 = p1-p2;
+	l2 = p3-p2;
+	n1 = (l1).CrossProduct(l2);
+	n1.Normalize();
+	
+	n2.x = 0.0f; n2.y = -1.0f; n2.z = 0.0f;
+	rotAxis = n2.CrossProduct(n1);
+	rotAxis.Normalize();
+	player->setRotAxis(rotAxis);
+	calcRotAngle(n1, n2);
+}
+
+void Game::calcRotAngle(Vector v1, Vector v2)
+{
+	float rotAngle;
+	rotAngle = v1.DotProduct(v2);
+	player->setAngle((acos(rotAngle)*180.0f/M_PI));
 }
 
 Game::~Game(void)
@@ -65,6 +88,7 @@ void Game::Initialise()
 
 	//camera setup
 	cam = new Camera();
+
 	//terrain
 	terrain = new Terrain();
 	terrain->init("Images/terrain.bmp", "Images/rock.bmp");
@@ -73,38 +97,45 @@ void Game::Initialise()
 	skybox = new Skybox();
 	skybox->loadTextures();
 
+	//audio setup
+	audioPlayer = new AudioPlayer("sounds/background.mp3");
+
 	//player setup
-	player = new Player(PLR_START_X, 275.0f, PLR_START_Z, "Data/pknight/pknight.md2", "Data/pknight/pknight.bmp");
+	player = new Player(PLR_START_X, 0.0f, PLR_START_Z, "Data/pknight/pknight.md2", "Data/pknight/pknight.bmp");
 
 	//enemies setup
 	for(int i = 0; i < NUM_ZOMBIES; i++)
-		zombies[i] = new Zombie(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f), "Data/pknight/pknight.md2", "Data/pknight/pknight.bmp");
+		zombies[i] = new Zombie(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f), "Data/Laalaa/laalaa.md2", "Data/Laalaa/laalaa24.bmp");
 
-	//float matSpec[] = {1.0f, 1.0f, 1.0f, 1.0f };
-	//float matShiny[] = {5.0f};  //128 is max value
-	lightPos[0]= 200; lightPos[1]=1000; lightPos[2]= 500; lightPos[3]=1.0f; //attach lightsource to player to mimic torch
-	//float whiteLight[] = { 0.5f, 0.5f, 0.7f, 0.0f };
+	float matSpec[] = {1.0f, 1.0f, 1.0f, 1.0f };
+	float matShiny[] = {5.0f};  //128 is max value
+	//lightPos[0]= 200; lightPos[1]=1000; lightPos[2]= 500; lightPos[3]=1.0f; //attach lightsource to player to mimic torch
+	lightPos[0]= player->getPos().x; lightPos[1]=1000.0f; lightPos[2]= player->getPos().z; lightPos[3]=1.0f;
+	float whiteLight[] = { 0.5f, 0.5f, 0.7f, 0.0f };
 	float ambLight[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-	//glMaterialfv(GL_FRONT, GL_AMBIENT, matSpec);
-	//glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec);
-	//glMaterialfv(GL_FRONT, GL_SHININESS, matShiny);
-	//glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
-	//glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
-	//glLightfv(GL_LIGHT0, GL_SPECULAR, whiteLight);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, matSpec);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec);
+	glMaterialfv(GL_FRONT, GL_SHININESS, matShiny);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, whiteLight);
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambLight);
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
-	//lSphere = gluNewQuadric();	//to show where light pos is
-	//gluQuadricDrawStyle(lSphere, GLU_FILL);
-	//gluQuadricNormals(lSphere, GLU_NONE);
+	lSphere = gluNewQuadric();	//to show where light pos is
+	gluQuadricDrawStyle(lSphere, GLU_FILL);
+	gluQuadricNormals(lSphere, GLU_NONE);
 
 	//controls the cursor
 	POINT p;
 	p.x = SCRN_W/2; p.y = SCRN_H/2;
 	ClientToScreen(hWnd, &p);
 	SetCursorPos(p.x, p.y);
+
+	//hides the mouse cursor
+	ShowCursor(false);
 }
 
 void Game::Shutdown()
@@ -115,7 +146,6 @@ void Game::Shutdown()
 	delete terrain;
 	delete skybox;
 	delete cam;
-	entities.clear();
 	if(lSphere != NULL)
 		gluDeleteQuadric(lSphere);
 	DebugOut("TERMINATED");
@@ -130,31 +160,25 @@ void Game::Update()
 	***********************************/
 	if(gameState == PLAYING)
 	{
-		// Perform collision detection here			
+		//GAME OVER IF HEALTH EQUALS OR LESS
+		if(player->getHealth() == 0)
+			gameState = OVER;
+
+		//COLLISION DETECTION HERE		
 		
-		//***UPDATE THE GAME OBJECTS**//
+		//UPDATE GAME OBJECTS HERE
 		player->update(tbf);
 		calcYFromCubeCtr(player, player->bb.ySize()  / 2.0f);
 
 		for(int i = 0; i < NUM_ZOMBIES; i++)
 		{
-			calcYFromCubeCtr(zombies[i], zombies[i]->bb.ySize() / 2.0f);
+			calcYFromCubeCtr(zombies[i], zombies[i]->bb.ySize() / 2.0f);  
 			zombies[i]->update(tbf);
 		}
 
-		cam->setToX(player->getPos().x); cam->setToY(player->getPos().y); cam->setToZ(player->getPos().z); 
-		cam->CameraPos();
-
-		//lightPos[0]=player->getPos().x; lightPos[1]=player->getPos().y+30; lightPos[2]= player->getPos().z; lightPos[3]=1.0f;
+		cam->cameraPos(player->getPos().x, player->getPos().y, player->getPos().z); 
 	}
-
-	/******************************************
-			IF GAME IS OVER
-	*****************************************/
-	if(player->getHealth() == 0)
-	{
-		gameState = OVER;
-	}
+	//======================================//
 }
 
 void Game::drawLightSource()
@@ -165,7 +189,7 @@ void Game::drawLightSource()
 	glColor3f(1.0f, 1.0f, 0.0f);
 	glPushMatrix();
 		glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
-		//gluSphere(lSphere, 20.0f, 20, 12);
+		gluSphere(lSphere, 20.0f, 20, 12);
 	glPopMatrix();
 
 	glEnable(GL_LIGHTING);
@@ -186,7 +210,8 @@ void Game::Render()
 	{
 		// set camera position 
 		gluLookAt(cam->getCamX(), cam->getCamY(), cam->getCamZ(), cam->getToX(), cam->getToY(), cam->getToZ(), 0.0f, 1.0f, 0.0f);
-		skybox->render( 20.0f, cam->getCamX(), -100, -cam->getCamZ() );		if(drawLight)	drawLightSource();	
+		//skybox->render( 10.0f, cam->getCamX(), -100, -cam->getCamZ() );		
+		if(drawLight)	drawLightSource();	
 	
 		terrain->render();
 
@@ -226,56 +251,7 @@ void Game::RenderHUD()
 	glDisable(GL_BLEND);
 
 	// Print the statistics
-	if(gameState == START)
-	{
-		sprintf_s(text, "Welcome to the game");
-		font1->printString(SCRN_W/2-70, 20, text);
-		sprintf_s(text, "Press ENTER to continue");
-		font1->printString(SCRN_W/2-90, SCRN_H-100, text);
-		PrintInstructions();
-	}
-
-	if(gameState == PAUSED)
-	{
-		sprintf_s(text, "Game Paused");
-		font1->printString(SCRN_W/2-70, 20, text);
-		sprintf_s(text, "Press P to continue");
-		font1->printString(SCRN_W/2-90, SCRN_H-100, text);	
-	}
-
-
-	if(gameState == PLAYING)
-	{
-		sprintf_s(text, "Score: %f   Lives: %i", player->getScore(), player->getLives());
-		font1->printString(4, 20, text);
-		sprintf_s(text, "Health: %i", player->getHealth());
-		font1->printString(4, 40, text);
-		sprintf_s(text, "%6.1f FPS", avgFps);
-		font1->printString(SCRN_W - 110, 20, text);
-	}
-
-	if(gameState == OVER)
-	{
-		if(player->getHealth() < 1)
-		{
-			font1->printString(SCRN_W/2-70, 20, text);
-			sprintf_s(text, "You collected all the energy coils.");
-			font1->printString(SCRN_W/2-150, SCRN_H / 2, text);
-			sprintf_s(text, "You can now power your ship and go home!");
-			font1->printString(SCRN_W/2-175, SCRN_H / 2 + 20, text);
-		}
-		else
-		{
-			font1->printString(SCRN_W/2-50, 20, text);
-			sprintf_s(text, "You failed in your task and got killed.");
-			font1->printString(SCRN_W/2-170, SCRN_H / 2, text);
-			sprintf_s(text, "You are a failure, you don't deserve to go home.");
-			font1->printString(SCRN_W/2-195, SCRN_H / 2 + 20, text);
-		}
-		sprintf_s(text, "Game Over");
-		sprintf_s(text, "Press ESC to exit or ENTER to restart");
-		font1->printString(SCRN_W/2-150, SCRN_H-100, text);
-	}
+	HudOutput();
 
 	// Set back to 3D
 	Set3D(VIEW_ANGLE, NEAR_CLIPPING, FAR_CLIPPING);
@@ -294,34 +270,81 @@ void Game::UpdateFps()
 
 void Game::PauseGame()
 {
+	if(gameState == PLAYING || gameState == PAUSED)
+	{
+		if(gameState == PAUSED)
+			gameState = PLAYING;
+		else
+			gameState = PAUSED;
+	}
+}
+
+void Game::HudOutput()
+{
+	if(gameState == START)
+	{
+		sprintf_s(text, "STRANDED!");
+		font1->printString(SCRN_W/2-20, 60, text);
+		sprintf_s(text, "Press ENTER to continue");
+		font1->printString(SCRN_W/2-90, SCRN_H-100, text);
+		sprintf_s(text, "OBJECTIVE: You have crashed your ship in a canyon");
+		font1->printString(SCRN_W/2-220, SCRN_H/2-80, text);
+		sprintf_s(text, "on a distant planet and lost all of");
+		font1->printString(SCRN_W/2-170, SCRN_H/2-60, text);	
+		sprintf_s(text, "the ships energy coils. Go and find them.");
+		font1->printString(SCRN_W/2-170, SCRN_H/2-40, text);
+		sprintf_s(text, "Initial scans of planet show there are hostiles.");
+		font1->printString(SCRN_W/2-210, SCRN_H/2+20, text);
+		sprintf_s(text, "You have no weapons so avoid them or they'll eat your face.");
+		font1->printString(SCRN_W/2-260, SCRN_H/2+40, text);
+		sprintf_s(text, "WASD - Move Player    SHIFT - SPRINT");
+		font1->printString(SCRN_W/2-170, SCRN_H/2+150, text);	
+	}
+
+	if(gameState == PLAYING)
+	{
+		sprintf_s(text, "Score: %i   Lives: %i", player->getScore(), player->getLives());
+		font1->printString(4, 20, text);
+		sprintf_s(text, "Health: %i", player->getHealth());
+		font1->printString(4, 40, text);
+		sprintf_s(text, "%6.1f FPS", avgFps);
+		font1->printString(SCRN_W - 110, 20, text);		
+	}
+
+	if(gameState == OVER)
+	{
+		if(player->getHealth() < 1)
+		{
+			sprintf_s(text, "You collected all the energy coils.");
+			font1->printString(SCRN_W/2-160, SCRN_H / 2 - 20, text);
+			sprintf_s(text, "You can now power your ship and go home!");
+			font1->printString(SCRN_W/2-180, SCRN_H / 2, text);
+		}
+		else
+		{			
+			sprintf_s(text, "You failed in your task and got killed.");
+			font1->printString(SCRN_W/2-200, SCRN_H / 2 - 20, text);
+			sprintf_s(text, "You are a failure, your body will now be eaten.");
+			font1->printString(SCRN_W/2-230, SCRN_H / 2, text);
+		}
+
+		sprintf_s(text, "Game Over");
+		font1->printString(SCRN_W/2-50, 20, text);			
+		sprintf_s(text, "Press ESC to exit or ENTER to restart");
+		font1->printString(SCRN_W/2-180, SCRN_H-10, text);			
+	}
+
 	if(gameState == PAUSED)
+	{
+		sprintf_s(text, "Game Paused");
+		font1->printString(SCRN_W/2-70, 20, text);
+		sprintf_s(text, "Press P to continue");
+		font1->printString(SCRN_W/2-90, SCRN_H-100, text);	
+	}
+}
+
+void Game::StartGame()
+{
+	if(gameState != PLAYING)
 		gameState = PLAYING;
-	else
-		gameState = PAUSED;
-}
-
-void Game::PrintInstructions()
-{
-	sprintf_s(text, "OBJECTIVE: You have crashed your ship in a canyon");
-	font1->printString(SCRN_W/2-220, SCRN_H/2-80, text);
-	sprintf_s(text, "on a distant planet and lost all of");
-	font1->printString(SCRN_W/2-170, SCRN_H/2-60, text);	
-	sprintf_s(text, "the ships energy coils. Go and find them.");
-	font1->printString(SCRN_W/2-170, SCRN_H/2-40, text);
-	sprintf_s(text, "Initial scans of planet show there are hostiles.");
-	font1->printString(SCRN_W/2-210, SCRN_H/2+20, text);
-	sprintf_s(text, "You have no weapons so avoid them or they'll eat your face.");
-	font1->printString(SCRN_W/2-260, SCRN_H/2+40, text);
-	sprintf_s(text, "WASD - Move Player    SHIFT - SPRINT");
-	font1->printString(SCRN_W/2-170, SCRN_H/2+150, text);	
-}
-
-void Game::ProcessKeyDown(char* key)
-{
-	
-}
-
-void Game::ProcessKeyUp()
-{
-
 }

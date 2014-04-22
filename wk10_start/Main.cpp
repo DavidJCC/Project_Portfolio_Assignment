@@ -33,26 +33,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					g_Game.player->renderBB();
 					break;
 				case VK_RETURN:
-					g_Game.gameState = PLAYING;
+					g_Game.StartGame();
 					break;
 				case VK_P:
 					g_Game.PauseGame();
 					break;
+				case VK_1:
+					g_Game.lightPos[0] += 50;
+					break;
+				case VK_2:
+					g_Game.lightPos[0] -= 50;
+					break;
 				case VK_SHIFT:
 						g_Game.player->setSprinting(true);
-					break;
-				case VK_L:
-					if(g_Game.drawLight)
-						g_Game.drawLight = false;
-					else
-						g_Game.drawLight = true;
 					break;
 				case VK_W:
 					g_Game.player->setVel(WALK_SPD, 0, 0);
 					g_Game.player->setWalking(true);
 					break;
 				case VK_S:
-					g_Game.player->rotate(Vector(1, 0, 0));
 					g_Game.player->setVel(-WALK_SPD*0.5f, 0, 0);
 					g_Game.player->setWalking(true);
 					break;
@@ -106,7 +105,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 			g_Game.cam->setMouseX(LOWORD(lParam));
 			g_Game.cam->setMouseY(HIWORD(lParam));
 			if(g_Game.picking == false)
-				g_Game.cam->CameraPos();
+				g_Game.cam->cameraPos();
 		break;
 		case WM_MOUSEWHEEL:
 			if(GET_WHEEL_DELTA_WPARAM(wParam) < 0)  //chk dir of scroll wheel
@@ -135,7 +134,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	// dont create a screen if we are in "console output" mode
 #ifndef _CONSOLEONLY_
-	g_Game.CreateScreen("Lighting example", SCRN_W, SCRN_H, 32, false);
+	g_Game.CreateScreen("Project Portfolio Assignment", SCRN_W, SCRN_H, 32, false);
 	g_Game.InitOpenGL();
 #endif
 

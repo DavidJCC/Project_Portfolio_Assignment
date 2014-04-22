@@ -1,5 +1,6 @@
 #pragma once
 #include "GameConstants.h"
+#include "BaseGame.h"
 #define _USE_MATH_DEFINES
 #include <cmath>
 
@@ -37,7 +38,8 @@ public:
 	/**
 	Used to update the camera position based on the mouse position
 	*/
-	void CameraPos();
+	void cameraPos();
+	void cameraPos(float toX, float toY, float toZ);
 
 	/**
 	Keeps the camera contrained

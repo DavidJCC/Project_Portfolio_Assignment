@@ -16,7 +16,7 @@ Camera::~Camera(void)
 {
 }
 
-void Camera::CameraPos()
+void Camera::cameraPos()
 {
 	// Map the mouse position to two angles
 	angNS = ((mouseY + 1) / SCRN_H) * (float)M_PI;
@@ -31,6 +31,29 @@ void Camera::CameraPos()
 	camZ = toZ + camRad * sinNS * cosEW;
 	camY = toY + camRad * cosNS;
 	camX = toX + camRad * sinNS * sinEW;
+
+	constrainCam();
+}
+
+void Camera::cameraPos(float toX, float toY, float toZ)
+{
+	// Map the mouse position to two angles
+	angNS = ((mouseY + 1) / SCRN_H) * (float)M_PI;
+	angEW = (mouseX / SCRN_W) * 2 * (float)M_PI;
+	// Calculate the sines and cosines of these angle
+	float sinNS = sin(angNS);
+	float cosNS = cos(angNS);
+	float sinEW = sin(angEW);
+	float cosEW = cos(angEW);
+
+	// calculate the camera coordinate
+	camZ = toZ + camRad * sinNS * cosEW;
+	camY = toY + camRad * cosNS;
+	camX = toX + camRad * sinNS * sinEW;
+
+	setToX(toX);
+	setToY(toY);
+	setToZ(toZ);
 
 	constrainCam();
 }

@@ -6,6 +6,7 @@ using namespace timer;
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <vector>
+#include <string>
 #include "cube3d.h"
 #include "DebugPrint.h"
 #include "Ackley.h"
@@ -18,16 +19,20 @@ using namespace timer;
 #include "GameConstants.h"
 #include "Terrain.h"
 #include "Camera.h"
+#include "AudioPlayer.h"
 
 #include "random.h"
 using namespace random;
 
+/*************************
+		GAME STATES
+*************************/
 enum gameStates
 {
-	START = 0,
-	PLAYING,
-	PAUSED,
-	OVER
+	START = 0, //initial splashscreen
+	PLAYING, //game is playing
+	PAUSED, //game paused 
+	OVER //game is over (either game over or game won)
 };
 
 /**
@@ -59,6 +64,7 @@ private:
 	int objectPicked;
 	Skybox* skybox;
 	Terrain* terrain;
+	AudioPlayer* audioPlayer;
 
 	bool keys[256];
 public:
@@ -118,7 +124,8 @@ public:
 	Vector unProject();
 	void UpdateFps();
 	void PauseGame();
-	void PrintInstructions();
-	void ProcessKeyDown(char* key);
-	void ProcessKeyUp();
+	void HudOutput();
+	void calcNormalFrom3Points(Vector p1, Vector p2, Vector p3);
+	void calcRotAngle(Vector v1, Vector v2);
+	void StartGame();
 };

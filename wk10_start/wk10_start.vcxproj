@@ -58,7 +58,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;odbc32.lib;odbccp32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;odbc32.lib;odbccp32.lib;winmm.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -86,6 +86,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AABB3.cpp" />
+    <ClCompile Include="AudioPlayer.cpp" />
     <ClCompile Include="BaseGame.cpp" />
     <ClCompile Include="BFont.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -102,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB3.h" />
+    <ClInclude Include="AudioPlayer.h" />
     <ClInclude Include="BaseGame.h" />
     <ClInclude Include="BFont.h" />
     <ClInclude Include="Camera.h" />

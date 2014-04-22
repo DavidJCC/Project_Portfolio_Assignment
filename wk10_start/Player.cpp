@@ -5,7 +5,7 @@ Player::Player(float x, float y, float z, char* modelFile, char* modelTex) : Ent
 {
 	m_hasFlag = false;
 	m_health = 500;
-	m_score = 0; 
+	m_score = 0;
 }
 
 

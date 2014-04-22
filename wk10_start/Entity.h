@@ -13,6 +13,8 @@ class Entity :	public MD2Model
 protected:
 	Vector m_velocity;
 	Vector m_direction;
+	Vector m_rotAxis;
+	float m_angle;
 	int m_health;
 	int m_lives;
 	bool m_isMoving;
@@ -29,18 +31,19 @@ public:
 	int getLives() { return m_lives; }
 	void setLives(int lives) { m_lives = lives; }
 
-	void setHealth(int health) { m_health += health; }
+	void setHealth(int health) { m_health = health; }
 	int getHealth() { return m_health; }
 
 	void setWalking(bool setWalking);
 	void setSprinting(bool setSprinting);
 
-	void setBBRender(bool bbRender) { m_bbRender = bbRender; }
-	bool getBBRender() { return m_bbRender; }
 	void renderBB();
 
 	void setPos(float x, float y, float z);
 	void setVel(float x, float y, float z);
+	void setRotAxis(Vector rotAxis) { m_rotAxis = rotAxis; }
+	void setAngle(float angle) { m_angle = angle; }
+
 	void move(float time);
 	void update(float time);
 	void stopMoving();
