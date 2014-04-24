@@ -54,8 +54,12 @@ const int RUN_END = 46;
 const int JUMP_START = 66;
 const int JUMP_END = 73;
 
+//death
+const int DEATH_START = 178;
+const int DEATH_END = 183;
+
 const float VIEW_ANGLE = 60.0f;
 const float NEAR_CLIPPING = 0.1f;
-const float FAR_CLIPPING = 5000.0f;
+const float FAR_CLIPPING = 7000.0f;
 
 #endif

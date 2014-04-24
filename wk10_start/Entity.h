@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef __PLAYER_H
+#define __PLAYER_H
 
 #define _USE_MATH_DEFINES
 #include <cmath>
@@ -7,12 +7,13 @@
 #include "GameConstants.h"
 #include "key_codes.h"
 #include "MD2Model.h"
+#include "DebugPrint.h"
 
 class Entity :	public MD2Model
 {
 protected:
-	Vector m_velocity;
-	Vector m_direction;
+	Vector m_vel;
+	Vector m_dir;
 	Vector m_rotAxis;
 	float m_angle;
 	int m_health;
@@ -31,6 +32,7 @@ public:
 	int getLives() { return m_lives; }
 	void setLives(int lives) { m_lives = lives; }
 
+	void updateHealth(int health) { m_health += health; }
 	void setHealth(int health) { m_health = health; }
 	int getHealth() { return m_health; }
 
@@ -43,16 +45,19 @@ public:
 	void setVel(float x, float y, float z);
 	void setRotAxis(Vector rotAxis) { m_rotAxis = rotAxis; }
 	void setAngle(float angle) { m_angle = angle; }
+	void setDir(Vector dir) { m_dir = dir; }
 
 	void move(float time);
 	void update(float time);
 	void stopMoving();
 
-	virtual	void animate() = 0; //pure virtual function
-	virtual void render() = 0; //pure virtual function
+	void animate();
+	void render();
 
-	void rotate(Vector newDirection);
+	void rotate();
 	void keepOnMap();
+
+	bool collidesWith(Entity* entity);
 };
 
 #endif

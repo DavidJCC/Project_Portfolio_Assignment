@@ -9,15 +9,11 @@ Skybox::~Skybox(void)
 {
 }
 
-void Skybox::init()
-{
-}
-
 void Skybox::render(float size, float x, float y, float z)
 {
 	glPushMatrix();
 		glLoadIdentity();
-		gluLookAt(0,0,0,x, y, z, 0, 1, 0);
+		//gluLookAt(0,0,0,x, y, z, 0, 1, 0);
 		bool b1=glIsEnabled(GL_TEXTURE_2D);	//new, we left the textures turned on, if it was turned on
 		bool b2=glIsEnabled(GL_LIGHTING);
 		glDisable(GL_LIGHTING);	//turn off lighting, when making the skybox

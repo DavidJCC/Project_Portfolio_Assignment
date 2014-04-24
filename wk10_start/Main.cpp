@@ -36,7 +36,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					g_Game.StartGame();
 					break;
 				case VK_P:
-					g_Game.PauseGame();
+					//g_Game.PauseGame();
+					g_Game.player->setHealth(0);
+					break;
+				case VK_L:
+					g_Game.DrawLightSwitch();
 					break;
 				case VK_1:
 					g_Game.lightPos[0] += 50;
@@ -45,14 +49,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					g_Game.lightPos[0] -= 50;
 					break;
 				case VK_SHIFT:
-						g_Game.player->setSprinting(true);
+					g_Game.player->setSprinting(true);
 					break;
 				case VK_W:
 					g_Game.player->setVel(WALK_SPD, 0, 0);
 					g_Game.player->setWalking(true);
 					break;
 				case VK_S:
-					g_Game.player->setVel(-WALK_SPD*0.5f, 0, 0);
+					g_Game.player->setVel(-WALK_SPD, 0, 0);
 					g_Game.player->setWalking(true);
 					break;
 				case VK_A:

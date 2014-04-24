@@ -1,9 +1,7 @@
 #pragma once
+#define _USE_MATH_DEFINES
 #include "basegame.h"
 #include "bfont.h"
-#include "timer.h"
-using namespace timer;
-#define _USE_MATH_DEFINES
 #include <cmath>
 #include <vector>
 #include <string>
@@ -20,9 +18,12 @@ using namespace timer;
 #include "Terrain.h"
 #include "Camera.h"
 #include "AudioPlayer.h"
+#include "GameDomain.h"
 
+#include "timer.h"
 #include "random.h"
 using namespace random;
+using namespace timer;
 
 /*************************
 		GAME STATES
@@ -65,7 +66,7 @@ private:
 	Skybox* skybox;
 	Terrain* terrain;
 	AudioPlayer* audioPlayer;
-
+	GameDomain* gd;
 	bool keys[256];
 public:
 
@@ -103,7 +104,7 @@ public:
 	void Game::Update();
 
 	/**
-	The nain rendering method - renders a single frame
+	The main rendering method - renders a single frame
 	*/
 	void Game::Render();
 
@@ -112,20 +113,33 @@ public:
 	various game statistics, primarily FPS
 	*/
 	void RenderHUD();
+	
+	/*
+	Draws the lightsource and the gluSphere
+	*/
+	void drawLightSource();
 
-	void loadAckley();
-	void InitialiseTerrain();
-	void renderTerrain();
+	/*
+	Updates the frames per second. To be used in Update()
+	*/
+	void UpdateFps();
+
+	/*
+	Guess what this function does? :)
+	*/
+	void PauseGame();
+
+	void HudOutput();	
+	void StartGame();
+	void DrawLightSwitch();
+
+
+	/**************************************************************
+			FIND OUT WHERE TO PUT THESE DONT LEAVE THEM HERE
+	**************************************************************/
 	float calcY(float x, float z, Vector p1, Vector p2, Vector p3);
 	void calcYFromCubeCtr(Object *c, float halfHeight);
 	Vector calcAvgNormal(int x, int z);
-	void drawLightSource();
-	void renderPlayer();
-	Vector unProject();
-	void UpdateFps();
-	void PauseGame();
-	void HudOutput();
 	void calcNormalFrom3Points(Vector p1, Vector p2, Vector p3);
-	void calcRotAngle(Vector v1, Vector v2);
-	void StartGame();
+	float calcRotAngle(Vector v1, Vector v2);
 };

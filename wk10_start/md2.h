@@ -9,6 +9,8 @@
 #include "Vector.h"
 #define MAX_FRAMES 512
 
+const float KEYFRAMES_PER_S = 8;
+
 enum texTypes_t{ PCX, BMP, TGA };
 
 typedef struct {

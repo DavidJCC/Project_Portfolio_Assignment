@@ -1,5 +1,5 @@
 #include "Game.h"
-#include <iostream>
+
 Game::Game(void)
 {
 	fCount = 0;
@@ -44,12 +44,12 @@ void Game::calcYFromCubeCtr(Object *c, float halfHeight)
 		p3.x = ltx; p3.y = terrain->terrain[(zi1+1) * MAP_Z + xi1]; p3.z = rtz;
 	}
 	c->getPos().y = calcY(c->getPos().x, c->getPos().z, p1, p2, p3) + halfHeight;
-	calcNormalFrom3Points(p1, p2, p3);
+	//calcNormalFrom3Points(p1, p2, p3);
 }
 
 void Game::calcNormalFrom3Points(Vector p1, Vector p2, Vector p3)
 {
-	Vector l1, l2, n1, n2, rotAxis, rotAngle;
+	Vector l1, l2, n1, n2, rotAxis;
 	l1 = p1-p2;
 	l2 = p3-p2;
 	n1 = (l1).CrossProduct(l2);
@@ -60,13 +60,14 @@ void Game::calcNormalFrom3Points(Vector p1, Vector p2, Vector p3)
 	rotAxis.Normalize();
 	player->setRotAxis(rotAxis);
 	calcRotAngle(n1, n2);
+	player->setAngle(calcRotAngle(n1, n2));
 }
 
-void Game::calcRotAngle(Vector v1, Vector v2)
+float Game::calcRotAngle(Vector v1, Vector v2)
 {
 	float rotAngle;
 	rotAngle = v1.DotProduct(v2);
-	player->setAngle((acos(rotAngle)*180.0f/M_PI));
+	return rotAngle;
 }
 
 Game::~Game(void)
@@ -83,7 +84,7 @@ void Game::InitOpenGL()
 void Game::Initialise()
 {
 	DebugOut("Game::Initialise being called");
-	font1 = new BFont(hDC, "Courier", 14);
+	font1 = new BFont(hDC, "Courier", 20);
 	timer = new Timer();
 
 	//camera setup
@@ -97,20 +98,23 @@ void Game::Initialise()
 	skybox = new Skybox();
 	skybox->loadTextures();
 
+	gd = new GameDomain(2000.0f);
+	gd->setColor(1,1,1,0);
+
 	//audio setup
 	audioPlayer = new AudioPlayer("sounds/background.mp3");
+	audioPlayer->playSound();
 
 	//player setup
-	player = new Player(PLR_START_X, 0.0f, PLR_START_Z, "Data/pknight/pknight.md2", "Data/pknight/pknight.bmp");
+	player = new Player(PLR_START_X, 0.0f, PLR_START_Z, "Data/Sodf8/Tris.md2", "Data/pKnight/pknight.bmp");
 
 	//enemies setup
 	for(int i = 0; i < NUM_ZOMBIES; i++)
-		zombies[i] = new Zombie(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f), "Data/Laalaa/laalaa.md2", "Data/Laalaa/laalaa24.bmp");
+		zombies[i] = new Zombie(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f), "Data/Phantom/tris.md2", "Data/Phantom/texture.bmp");
 
 	float matSpec[] = {1.0f, 1.0f, 1.0f, 1.0f };
 	float matShiny[] = {5.0f};  //128 is max value
-	//lightPos[0]= 200; lightPos[1]=1000; lightPos[2]= 500; lightPos[3]=1.0f; //attach lightsource to player to mimic torch
-	lightPos[0]= player->getPos().x; lightPos[1]=1000.0f; lightPos[2]= player->getPos().z; lightPos[3]=1.0f;
+	lightPos[0]= -500; lightPos[1]=1000.0f; lightPos[2]= 1000; lightPos[3]=1.0f;
 	float whiteLight[] = { 0.5f, 0.5f, 0.7f, 0.0f };
 	float ambLight[] = { 1.0f, 0.0f, 0.0f, 1.0f };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, matSpec);
@@ -144,6 +148,7 @@ void Game::Shutdown()
 	delete font1;
 	delete timer;
 	delete terrain;
+	skybox->kill();
 	delete skybox;
 	delete cam;
 	if(lSphere != NULL)
@@ -165,7 +170,14 @@ void Game::Update()
 			gameState = OVER;
 
 		//COLLISION DETECTION HERE		
-		
+		for(int i = 0; i < NUM_ZOMBIES; i++)
+		{
+			if(player->collidesWith(zombies[i]))
+			{
+				player->updateHealth(-5);
+			}
+		}
+
 		//UPDATE GAME OBJECTS HERE
 		player->update(tbf);
 		calcYFromCubeCtr(player, player->bb.ySize()  / 2.0f);
@@ -181,22 +193,35 @@ void Game::Update()
 	//======================================//
 }
 
-void Game::drawLightSource()
+void Game::DrawLightSwitch()
 {
-	glDisable(GL_TEXTURE_2D);
-	glDisable(GL_LIGHTING);
-
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glPushMatrix();
-		glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
-		gluSphere(lSphere, 20.0f, 20, 12);
-	glPopMatrix();
-
-	glEnable(GL_LIGHTING);
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+	if(drawLight)
+		drawLight = false;
+	else drawLight = true;
 }
 
-// and now render the objects in their current state.
+void Game::drawLightSource()
+{
+	if(drawLight)
+	{
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_LIGHTING);
+
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glPushMatrix();
+			glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
+			gluCylinder(lSphere, 100.0f, 100.0f, 20.0f, 20, 20);
+			gluSphere(lSphere, 1000.0f, 20, 12);
+		glPopMatrix();
+
+		glEnable(GL_LIGHTING);
+		glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+	}
+}
+
+/*************************************
+RENDER OBJECTS IN THEIR CURRENT STATE
+*************************************/
 void Game::Render()
 {
 	//glEnable(GL_LIGHTING);
@@ -208,19 +233,17 @@ void Game::Render()
 	*********************************************************/
 	if(gameState == PLAYING)
 	{
-		// set camera position 
+		//LOOK AT/UPDATE THE CAMERA POSITION
 		gluLookAt(cam->getCamX(), cam->getCamY(), cam->getCamZ(), cam->getToX(), cam->getToY(), cam->getToZ(), 0.0f, 1.0f, 0.0f);
-		//skybox->render( 10.0f, cam->getCamX(), -100, -cam->getCamZ() );		
-		if(drawLight)	drawLightSource();	
-	
+		skybox->render( 20.0f, cam->getCamX(), -100, -cam->getCamZ() );		
+		
+		drawLightSource();	
+		//gd->Render();
 		terrain->render();
-
 		player->render();
 
 		for(int i = 0; i < NUM_ZOMBIES; i++)
-		{
 			zombies[i]->render();
-		}
 	}
 
 	RenderHUD();
@@ -303,12 +326,12 @@ void Game::HudOutput()
 
 	if(gameState == PLAYING)
 	{
-		sprintf_s(text, "Score: %i   Lives: %i", player->getScore(), player->getLives());
+		sprintf_s(text, "Score: %i   Lives: %i ", player->getScore(), player->getLives());
 		font1->printString(4, 20, text);
 		sprintf_s(text, "Health: %i", player->getHealth());
 		font1->printString(4, 40, text);
 		sprintf_s(text, "%6.1f FPS", avgFps);
-		font1->printString(SCRN_W - 110, 20, text);		
+		font1->printString(SCRN_W - 150, 20, text);		
 	}
 
 	if(gameState == OVER)

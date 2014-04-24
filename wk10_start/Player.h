@@ -14,8 +14,5 @@ public:
 	int getScore() { return m_score; }
 	void setScore(int score) { m_score = score; }
 	void updateScore(int score) { m_score += score; }
-
-	void animate();
-	void render();
 };
 

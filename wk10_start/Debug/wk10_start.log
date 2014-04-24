@@ -1,8 +1,12 @@
-﻿Build started 22/04/2014 20:12:05.
+﻿Build started 24/04/2014 23:08:18.
      1>Project "C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\wk10_start\wk10_start.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
-         Main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
+         Game.cpp
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(28): warning C4244: 'initializing' : conversion from 'scalar_t' to 'int', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(29): warning C4244: 'initializing' : conversion from 'scalar_t' to 'int', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(259): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(259): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.exe" /INCREMENTAL:NO /NOLOGO opengl32.lib glu32.lib odbc32.lib odbccp32.lib winmm.lib irrKlang.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\wk10_start.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.lib" /MACHINE:X86 Debug\AABB3.obj
          Debug\AudioPlayer.obj
@@ -10,7 +14,9 @@
          Debug\BFont.obj
          Debug\Camera.obj
          Debug\Cube3D.obj
+         Debug\EnergyCoil.obj
          Debug\Game.obj
+         Debug\GameDomain.obj
          Debug\LoadTextures.obj
          Debug\Main.obj
          Debug\MD2Model.obj
@@ -27,4 +33,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.07
+Time Elapsed 00:00:01.06
