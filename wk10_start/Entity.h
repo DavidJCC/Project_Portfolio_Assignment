@@ -25,7 +25,8 @@ protected:
 	bool m_bbRender;
 	
 public:
-	Entity(int x, int y, int z, char* modelFile, char* modelTex);
+	Entity(float x, float y, float z, char* modelFile, char* modelTex);
+	Entity(float x, float y, float z);
 	~Entity(void);
 
 	//setters and getters

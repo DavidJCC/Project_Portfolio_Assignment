@@ -19,6 +19,7 @@
 #include "Camera.h"
 #include "AudioPlayer.h"
 #include "GameDomain.h"
+#include "EnergyCoil.h"
 
 #include "timer.h"
 #include "random.h"
@@ -61,6 +62,7 @@ private:
 	Camera* cam;
 	Player* player;
 	Zombie* zombies[NUM_ZOMBIES];
+	EnergyCoil* energyCoils[NUM_COILS];
 	bool objSelected, picking, drawLight;
 	int objectPicked;
 	Skybox* skybox;

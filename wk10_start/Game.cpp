@@ -98,8 +98,12 @@ void Game::Initialise()
 	skybox = new Skybox();
 	skybox->loadTextures();
 
-	gd = new GameDomain(2000.0f);
-	gd->setColor(1,1,1,0);
+	//energy coils setup
+	for(int i = 0; i < NUM_COILS; i++)
+	{
+		//as no models files or texures are loaded the coils will be represented as a gluquadric shape. If I find a good model to use replace it
+		energyCoils[i] = new EnergyCoil(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f));
+	}
 
 	//audio setup
 	audioPlayer = new AudioPlayer("sounds/background.mp3");
@@ -114,7 +118,7 @@ void Game::Initialise()
 
 	float matSpec[] = {1.0f, 1.0f, 1.0f, 1.0f };
 	float matShiny[] = {5.0f};  //128 is max value
-	lightPos[0]= -500; lightPos[1]=1000.0f; lightPos[2]= 1000; lightPos[3]=1.0f;
+	lightPos[0]= player->getPos().x; lightPos[1]=1900.0f; lightPos[2]= player->getPos().z; lightPos[3]=0.1f;
 	float whiteLight[] = { 0.5f, 0.5f, 0.7f, 0.0f };
 	float ambLight[] = { 1.0f, 0.0f, 0.0f, 1.0f };
 	glMaterialfv(GL_FRONT, GL_AMBIENT, matSpec);
@@ -178,9 +182,24 @@ void Game::Update()
 			}
 		}
 
+		for(int i = 0; i < NUM_COILS; i++)
+		{
+			if(energyCoils[i]->collidesWith(player))
+			{
+				PostQuitMessage(0);
+				energyCoils[i]->setCollected(true);
+			}
+		}
+
 		//UPDATE GAME OBJECTS HERE
 		player->update(tbf);
 		calcYFromCubeCtr(player, player->bb.ySize()  / 2.0f);
+
+		for(int i = 0; i < NUM_COILS; i++)
+		{
+			calcYFromCubeCtr(energyCoils[i], energyCoils[i]->bb.ySize() / 2.0f);
+			energyCoils[i]->update(tbf);
+		}
 
 		for(int i = 0; i < NUM_ZOMBIES; i++)
 		{
@@ -207,11 +226,10 @@ void Game::drawLightSource()
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_LIGHTING);
 
-		glColor3f(0.0f, 1.0f, 0.0f);
+		glColor3f(1.0f, 1.0f, 0.0f);
 		glPushMatrix();
 			glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
-			gluCylinder(lSphere, 100.0f, 100.0f, 20.0f, 20, 20);
-			gluSphere(lSphere, 1000.0f, 20, 12);
+			gluSphere(lSphere, 10.0f, 20, 12);
 		glPopMatrix();
 
 		glEnable(GL_LIGHTING);
@@ -244,6 +262,8 @@ void Game::Render()
 
 		for(int i = 0; i < NUM_ZOMBIES; i++)
 			zombies[i]->render();
+		for(int i = 0; i < NUM_COILS; i++)
+			energyCoils[i]->render();
 	}
 
 	RenderHUD();

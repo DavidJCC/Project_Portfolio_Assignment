@@ -36,8 +36,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					g_Game.StartGame();
 					break;
 				case VK_P:
-					//g_Game.PauseGame();
-					g_Game.player->setHealth(0);
+					g_Game.PauseGame();
 					break;
 				case VK_L:
 					g_Game.DrawLightSwitch();
@@ -65,8 +64,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 					break;
 				case VK_D:
 					g_Game.player->setVel(0 ,0, WALK_SPD);
-					break;
-				case VK_F:
 					break;
 				default:
 					break;

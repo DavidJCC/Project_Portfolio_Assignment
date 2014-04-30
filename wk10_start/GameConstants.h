@@ -28,6 +28,11 @@ const int NUM_ZOMBIES = 6;
 const int NUM_BONUS = 6;
 
 /*******************************
+		  EERGY COILS
+*******************************/
+const int NUM_COILS = 10;
+
+/*******************************
 		    PLAYER
 *******************************/
 const float WALK_SPD = 200.0f;

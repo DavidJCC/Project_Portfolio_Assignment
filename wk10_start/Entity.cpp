@@ -1,8 +1,20 @@
 #include "Entity.h"
 
-Entity::Entity(int x, int y, int z, char* modelFile, char* modelTex) : MD2Model()
+Entity::Entity(float x, float y, float z, char* modelFile, char* modelTex) : MD2Model()
 {
 	LoadMD2Model(modelFile, modelTex);
+	m_pos.x = x;	m_pos.y = y;	m_pos.z = z;
+	m_health = 100;
+	m_lives = 3;
+	m_bbRender = m_isMoving = m_isSprinting = m_isWalking = false;
+	m_firstTime = true;
+	m_rotAxis = m_dir = -1.0f, 0.0f, 0.0f;
+	m_vel = Vector();
+	m_angle = 90.0f;
+}
+
+Entity::Entity(float x, float y, float z)
+{
 	m_pos.x = x;	m_pos.y = y;	m_pos.z = z;
 	m_health = 100;
 	m_lives = 3;

@@ -1,36 +1,481 @@
-﻿Build started 24/04/2014 23:08:18.
-     1>Project "C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\wk10_start\wk10_start.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
+﻿Build started 29/04/2014 17:16:59.
+     1>Project "\\Moriarty\dc5amt$\Downloads\Project Portfolio Assignment\wk10_start\wk10_start.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\wk10_start.unsuccessfulbuild".
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp EnergyCoil.cpp Entity.cpp Game.cpp Main.cpp Player.cpp Terrain.cpp Zombie.cpp
          Game.cpp
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(28): warning C4244: 'initializing' : conversion from 'scalar_t' to 'int', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(29): warning C4244: 'initializing' : conversion from 'scalar_t' to 'int', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(259): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-     1>c:\users\administrator\dropbox\_work\y2s2 - project portfolio\assignment\3d_game\project portfolio assignment\wk10_start\game.cpp(259): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.exe" /INCREMENTAL:NO /NOLOGO opengl32.lib glu32.lib odbc32.lib odbccp32.lib winmm.lib irrKlang.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\wk10_start.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.lib" /MACHINE:X86 Debug\AABB3.obj
-         Debug\AudioPlayer.obj
-         Debug\BaseGame.obj
-         Debug\BFont.obj
-         Debug\Camera.obj
-         Debug\Cube3D.obj
-         Debug\EnergyCoil.obj
-         Debug\Game.obj
-         Debug\GameDomain.obj
-         Debug\LoadTextures.obj
-         Debug\Main.obj
-         Debug\MD2Model.obj
-         Debug\Entity.obj
-         Debug\Player.obj
-         Debug\Skybox.obj
-         Debug\Terrain.obj
-         Debug\Zombie.obj
-     1>AABB3.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
-         wk10_start.vcxproj -> C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.exe
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\Debug\wk10_start.exe;#1" /manifest Debug\wk10_start.exe.intermediate.manifest
-     1>Done Building Project "C:\Users\Administrator\Dropbox\_WORK\Y2S2 - Project Portfolio\ASSIGNMENT\3D_GAME\Project Portfolio Assignment\wk10_start\wk10_start.vcxproj" (Build target(s)).
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(73): error C2440: 'initializing' : cannot convert from 'const char [20]' to 'const char'
+                 There is no context in which this conversion is possible
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(74): error C2440: 'initializing' : cannot convert from 'const char [25]' to 'const char'
+                 There is no context in which this conversion is possible
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\game.cpp(28): warning C4244: 'initializing' : conversion from 'scalar_t' to 'int', possible loss of data
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\game.cpp(29): warning C4244: 'initializing' : conversion from 'scalar_t' to 'int', possible loss of data
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\game.cpp(113): error C2664: 'Player::Player(float,float,float,char *,char *)' : cannot convert parameter 4 from 'const char' to 'char *'
+                 Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or function-style cast
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\game.cpp(279): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\game.cpp(279): warning C4244: 'argument' : conversion from 'const int' to 'float', possible loss of data
+         Generating Code...
+         Compiling...
+         Camera.cpp
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(73): error C2440: 'initializing' : cannot convert from 'const char [20]' to 'const char'
+                 There is no context in which this conversion is possible
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(74): error C2440: 'initializing' : cannot convert from 'const char [25]' to 'const char'
+                 There is no context in which this conversion is possible
+         Generating Code...
+         Compiling...
+         Entity.cpp
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(73): error C2440: 'initializing' : cannot convert from 'const char [20]' to 'const char'
+                 There is no context in which this conversion is possible
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(74): error C2440: 'initializing' : cannot convert from 'const char [25]' to 'const char'
+                 There is no context in which this conversion is possible
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(375): warning C4005: 'VK_LBUTTON' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(4) : see previous definition of 'VK_LBUTTON'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(376): warning C4005: 'VK_RBUTTON' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(7) : see previous definition of 'VK_RBUTTON'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(377): warning C4005: 'VK_CANCEL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(10) : see previous definition of 'VK_CANCEL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(378): warning C4005: 'VK_MBUTTON' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(13) : see previous definition of 'VK_MBUTTON'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(389): warning C4005: 'VK_BACK' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(16) : see previous definition of 'VK_BACK'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(390): warning C4005: 'VK_TAB' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(19) : see previous definition of 'VK_TAB'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(396): warning C4005: 'VK_CLEAR' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(22) : see previous definition of 'VK_CLEAR'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(397): warning C4005: 'VK_RETURN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(25) : see previous definition of 'VK_RETURN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(399): warning C4005: 'VK_SHIFT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(28) : see previous definition of 'VK_SHIFT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(400): warning C4005: 'VK_CONTROL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(31) : see previous definition of 'VK_CONTROL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(401): warning C4005: 'VK_MENU' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(34) : see previous definition of 'VK_MENU'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(402): warning C4005: 'VK_PAUSE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(37) : see previous definition of 'VK_PAUSE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(403): warning C4005: 'VK_CAPITAL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(40) : see previous definition of 'VK_CAPITAL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(413): warning C4005: 'VK_ESCAPE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(43) : see previous definition of 'VK_ESCAPE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(420): warning C4005: 'VK_SPACE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(46) : see previous definition of 'VK_SPACE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(421): warning C4005: 'VK_PRIOR' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(49) : see previous definition of 'VK_PRIOR'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(422): warning C4005: 'VK_NEXT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(52) : see previous definition of 'VK_NEXT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(423): warning C4005: 'VK_END' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(55) : see previous definition of 'VK_END'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(424): warning C4005: 'VK_HOME' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(58) : see previous definition of 'VK_HOME'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(425): warning C4005: 'VK_LEFT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(61) : see previous definition of 'VK_LEFT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(426): warning C4005: 'VK_UP' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(64) : see previous definition of 'VK_UP'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(427): warning C4005: 'VK_RIGHT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(67) : see previous definition of 'VK_RIGHT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(428): warning C4005: 'VK_DOWN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(70) : see previous definition of 'VK_DOWN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(429): warning C4005: 'VK_SELECT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(73) : see previous definition of 'VK_SELECT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(431): warning C4005: 'VK_EXECUTE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(76) : see previous definition of 'VK_EXECUTE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(432): warning C4005: 'VK_SNAPSHOT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(79) : see previous definition of 'VK_SNAPSHOT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(433): warning C4005: 'VK_INSERT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(82) : see previous definition of 'VK_INSERT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(434): warning C4005: 'VK_DELETE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(85) : see previous definition of 'VK_DELETE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(435): warning C4005: 'VK_HELP' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(88) : see previous definition of 'VK_HELP'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(443): warning C4005: 'VK_LWIN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(199) : see previous definition of 'VK_LWIN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(444): warning C4005: 'VK_RWIN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(202) : see previous definition of 'VK_RWIN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(445): warning C4005: 'VK_APPS' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(205) : see previous definition of 'VK_APPS'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(453): warning C4005: 'VK_NUMPAD0' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(208) : see previous definition of 'VK_NUMPAD0'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(454): warning C4005: 'VK_NUMPAD1' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(211) : see previous definition of 'VK_NUMPAD1'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(455): warning C4005: 'VK_NUMPAD2' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(214) : see previous definition of 'VK_NUMPAD2'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(456): warning C4005: 'VK_NUMPAD3' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(217) : see previous definition of 'VK_NUMPAD3'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(457): warning C4005: 'VK_NUMPAD4' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(220) : see previous definition of 'VK_NUMPAD4'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(458): warning C4005: 'VK_NUMPAD5' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(223) : see previous definition of 'VK_NUMPAD5'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(459): warning C4005: 'VK_NUMPAD6' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(226) : see previous definition of 'VK_NUMPAD6'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(460): warning C4005: 'VK_NUMPAD7' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(229) : see previous definition of 'VK_NUMPAD7'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(461): warning C4005: 'VK_NUMPAD8' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(232) : see previous definition of 'VK_NUMPAD8'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(462): warning C4005: 'VK_NUMPAD9' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(235) : see previous definition of 'VK_NUMPAD9'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(463): warning C4005: 'VK_MULTIPLY' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(238) : see previous definition of 'VK_MULTIPLY'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(464): warning C4005: 'VK_ADD' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(241) : see previous definition of 'VK_ADD'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(465): warning C4005: 'VK_SEPARATOR' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(244) : see previous definition of 'VK_SEPARATOR'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(466): warning C4005: 'VK_SUBTRACT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(247) : see previous definition of 'VK_SUBTRACT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(467): warning C4005: 'VK_DECIMAL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(250) : see previous definition of 'VK_DECIMAL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(468): warning C4005: 'VK_DIVIDE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(253) : see previous definition of 'VK_DIVIDE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(469): warning C4005: 'VK_F1' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(256) : see previous definition of 'VK_F1'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(470): warning C4005: 'VK_F2' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(259) : see previous definition of 'VK_F2'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(471): warning C4005: 'VK_F3' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(262) : see previous definition of 'VK_F3'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(472): warning C4005: 'VK_F4' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(265) : see previous definition of 'VK_F4'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(473): warning C4005: 'VK_F5' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(268) : see previous definition of 'VK_F5'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(474): warning C4005: 'VK_F6' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(271) : see previous definition of 'VK_F6'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(475): warning C4005: 'VK_F7' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(274) : see previous definition of 'VK_F7'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(476): warning C4005: 'VK_F8' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(277) : see previous definition of 'VK_F8'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(477): warning C4005: 'VK_F9' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(280) : see previous definition of 'VK_F9'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(478): warning C4005: 'VK_F10' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(283) : see previous definition of 'VK_F10'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(479): warning C4005: 'VK_F11' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(286) : see previous definition of 'VK_F11'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(480): warning C4005: 'VK_F12' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(289) : see previous definition of 'VK_F12'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(498): warning C4005: 'VK_NUMLOCK' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(292) : see previous definition of 'VK_NUMLOCK'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(499): warning C4005: 'VK_SCROLL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(295) : see previous definition of 'VK_SCROLL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(624): warning C4005: 'VK_ATTN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(298) : see previous definition of 'VK_ATTN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(625): warning C4005: 'VK_CRSEL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(301) : see previous definition of 'VK_CRSEL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(626): warning C4005: 'VK_EXSEL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(304) : see previous definition of 'VK_EXSEL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(627): warning C4005: 'VK_EREOF' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(307) : see previous definition of 'VK_EREOF'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(628): warning C4005: 'VK_PLAY' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(310) : see previous definition of 'VK_PLAY'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(629): warning C4005: 'VK_ZOOM' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(313) : see previous definition of 'VK_ZOOM'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(631): warning C4005: 'VK_PA1' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(316) : see previous definition of 'VK_PA1'
+         Generating Code...
+         Compiling...
+         Main.cpp
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(73): error C2440: 'initializing' : cannot convert from 'const char [20]' to 'const char'
+                 There is no context in which this conversion is possible
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(74): error C2440: 'initializing' : cannot convert from 'const char [25]' to 'const char'
+                 There is no context in which this conversion is possible
+         Generating Code...
+         Compiling...
+         Player.cpp
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(73): error C2440: 'initializing' : cannot convert from 'const char [20]' to 'const char'
+                 There is no context in which this conversion is possible
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(74): error C2440: 'initializing' : cannot convert from 'const char [25]' to 'const char'
+                 There is no context in which this conversion is possible
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(375): warning C4005: 'VK_LBUTTON' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(4) : see previous definition of 'VK_LBUTTON'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(376): warning C4005: 'VK_RBUTTON' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(7) : see previous definition of 'VK_RBUTTON'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(377): warning C4005: 'VK_CANCEL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(10) : see previous definition of 'VK_CANCEL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(378): warning C4005: 'VK_MBUTTON' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(13) : see previous definition of 'VK_MBUTTON'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(389): warning C4005: 'VK_BACK' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(16) : see previous definition of 'VK_BACK'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(390): warning C4005: 'VK_TAB' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(19) : see previous definition of 'VK_TAB'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(396): warning C4005: 'VK_CLEAR' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(22) : see previous definition of 'VK_CLEAR'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(397): warning C4005: 'VK_RETURN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(25) : see previous definition of 'VK_RETURN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(399): warning C4005: 'VK_SHIFT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(28) : see previous definition of 'VK_SHIFT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(400): warning C4005: 'VK_CONTROL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(31) : see previous definition of 'VK_CONTROL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(401): warning C4005: 'VK_MENU' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(34) : see previous definition of 'VK_MENU'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(402): warning C4005: 'VK_PAUSE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(37) : see previous definition of 'VK_PAUSE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(403): warning C4005: 'VK_CAPITAL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(40) : see previous definition of 'VK_CAPITAL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(413): warning C4005: 'VK_ESCAPE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(43) : see previous definition of 'VK_ESCAPE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(420): warning C4005: 'VK_SPACE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(46) : see previous definition of 'VK_SPACE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(421): warning C4005: 'VK_PRIOR' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(49) : see previous definition of 'VK_PRIOR'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(422): warning C4005: 'VK_NEXT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(52) : see previous definition of 'VK_NEXT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(423): warning C4005: 'VK_END' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(55) : see previous definition of 'VK_END'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(424): warning C4005: 'VK_HOME' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(58) : see previous definition of 'VK_HOME'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(425): warning C4005: 'VK_LEFT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(61) : see previous definition of 'VK_LEFT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(426): warning C4005: 'VK_UP' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(64) : see previous definition of 'VK_UP'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(427): warning C4005: 'VK_RIGHT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(67) : see previous definition of 'VK_RIGHT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(428): warning C4005: 'VK_DOWN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(70) : see previous definition of 'VK_DOWN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(429): warning C4005: 'VK_SELECT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(73) : see previous definition of 'VK_SELECT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(431): warning C4005: 'VK_EXECUTE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(76) : see previous definition of 'VK_EXECUTE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(432): warning C4005: 'VK_SNAPSHOT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(79) : see previous definition of 'VK_SNAPSHOT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(433): warning C4005: 'VK_INSERT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(82) : see previous definition of 'VK_INSERT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(434): warning C4005: 'VK_DELETE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(85) : see previous definition of 'VK_DELETE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(435): warning C4005: 'VK_HELP' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(88) : see previous definition of 'VK_HELP'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(443): warning C4005: 'VK_LWIN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(199) : see previous definition of 'VK_LWIN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(444): warning C4005: 'VK_RWIN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(202) : see previous definition of 'VK_RWIN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(445): warning C4005: 'VK_APPS' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(205) : see previous definition of 'VK_APPS'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(453): warning C4005: 'VK_NUMPAD0' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(208) : see previous definition of 'VK_NUMPAD0'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(454): warning C4005: 'VK_NUMPAD1' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(211) : see previous definition of 'VK_NUMPAD1'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(455): warning C4005: 'VK_NUMPAD2' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(214) : see previous definition of 'VK_NUMPAD2'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(456): warning C4005: 'VK_NUMPAD3' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(217) : see previous definition of 'VK_NUMPAD3'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(457): warning C4005: 'VK_NUMPAD4' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(220) : see previous definition of 'VK_NUMPAD4'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(458): warning C4005: 'VK_NUMPAD5' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(223) : see previous definition of 'VK_NUMPAD5'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(459): warning C4005: 'VK_NUMPAD6' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(226) : see previous definition of 'VK_NUMPAD6'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(460): warning C4005: 'VK_NUMPAD7' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(229) : see previous definition of 'VK_NUMPAD7'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(461): warning C4005: 'VK_NUMPAD8' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(232) : see previous definition of 'VK_NUMPAD8'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(462): warning C4005: 'VK_NUMPAD9' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(235) : see previous definition of 'VK_NUMPAD9'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(463): warning C4005: 'VK_MULTIPLY' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(238) : see previous definition of 'VK_MULTIPLY'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(464): warning C4005: 'VK_ADD' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(241) : see previous definition of 'VK_ADD'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(465): warning C4005: 'VK_SEPARATOR' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(244) : see previous definition of 'VK_SEPARATOR'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(466): warning C4005: 'VK_SUBTRACT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(247) : see previous definition of 'VK_SUBTRACT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(467): warning C4005: 'VK_DECIMAL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(250) : see previous definition of 'VK_DECIMAL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(468): warning C4005: 'VK_DIVIDE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(253) : see previous definition of 'VK_DIVIDE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(469): warning C4005: 'VK_F1' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(256) : see previous definition of 'VK_F1'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(470): warning C4005: 'VK_F2' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(259) : see previous definition of 'VK_F2'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(471): warning C4005: 'VK_F3' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(262) : see previous definition of 'VK_F3'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(472): warning C4005: 'VK_F4' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(265) : see previous definition of 'VK_F4'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(473): warning C4005: 'VK_F5' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(268) : see previous definition of 'VK_F5'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(474): warning C4005: 'VK_F6' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(271) : see previous definition of 'VK_F6'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(475): warning C4005: 'VK_F7' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(274) : see previous definition of 'VK_F7'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(476): warning C4005: 'VK_F8' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(277) : see previous definition of 'VK_F8'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(477): warning C4005: 'VK_F9' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(280) : see previous definition of 'VK_F9'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(478): warning C4005: 'VK_F10' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(283) : see previous definition of 'VK_F10'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(479): warning C4005: 'VK_F11' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(286) : see previous definition of 'VK_F11'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(480): warning C4005: 'VK_F12' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(289) : see previous definition of 'VK_F12'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(498): warning C4005: 'VK_NUMLOCK' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(292) : see previous definition of 'VK_NUMLOCK'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(499): warning C4005: 'VK_SCROLL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(295) : see previous definition of 'VK_SCROLL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(624): warning C4005: 'VK_ATTN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(298) : see previous definition of 'VK_ATTN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(625): warning C4005: 'VK_CRSEL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(301) : see previous definition of 'VK_CRSEL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(626): warning C4005: 'VK_EXSEL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(304) : see previous definition of 'VK_EXSEL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(627): warning C4005: 'VK_EREOF' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(307) : see previous definition of 'VK_EREOF'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(628): warning C4005: 'VK_PLAY' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(310) : see previous definition of 'VK_PLAY'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(629): warning C4005: 'VK_ZOOM' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(313) : see previous definition of 'VK_ZOOM'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(631): warning C4005: 'VK_PA1' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(316) : see previous definition of 'VK_PA1'
+         Generating Code...
+         Compiling...
+         Terrain.cpp
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(73): error C2440: 'initializing' : cannot convert from 'const char [20]' to 'const char'
+                 There is no context in which this conversion is possible
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(74): error C2440: 'initializing' : cannot convert from 'const char [25]' to 'const char'
+                 There is no context in which this conversion is possible
+         Generating Code...
+         Compiling...
+         Zombie.cpp
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(73): error C2440: 'initializing' : cannot convert from 'const char [20]' to 'const char'
+                 There is no context in which this conversion is possible
+     1>\\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\gameconstants.h(74): error C2440: 'initializing' : cannot convert from 'const char [25]' to 'const char'
+                 There is no context in which this conversion is possible
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(375): warning C4005: 'VK_LBUTTON' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(4) : see previous definition of 'VK_LBUTTON'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(376): warning C4005: 'VK_RBUTTON' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(7) : see previous definition of 'VK_RBUTTON'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(377): warning C4005: 'VK_CANCEL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(10) : see previous definition of 'VK_CANCEL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(378): warning C4005: 'VK_MBUTTON' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(13) : see previous definition of 'VK_MBUTTON'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(389): warning C4005: 'VK_BACK' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(16) : see previous definition of 'VK_BACK'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(390): warning C4005: 'VK_TAB' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(19) : see previous definition of 'VK_TAB'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(396): warning C4005: 'VK_CLEAR' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(22) : see previous definition of 'VK_CLEAR'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(397): warning C4005: 'VK_RETURN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(25) : see previous definition of 'VK_RETURN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(399): warning C4005: 'VK_SHIFT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(28) : see previous definition of 'VK_SHIFT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(400): warning C4005: 'VK_CONTROL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(31) : see previous definition of 'VK_CONTROL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(401): warning C4005: 'VK_MENU' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(34) : see previous definition of 'VK_MENU'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(402): warning C4005: 'VK_PAUSE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(37) : see previous definition of 'VK_PAUSE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(403): warning C4005: 'VK_CAPITAL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(40) : see previous definition of 'VK_CAPITAL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(413): warning C4005: 'VK_ESCAPE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(43) : see previous definition of 'VK_ESCAPE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(420): warning C4005: 'VK_SPACE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(46) : see previous definition of 'VK_SPACE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(421): warning C4005: 'VK_PRIOR' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(49) : see previous definition of 'VK_PRIOR'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(422): warning C4005: 'VK_NEXT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(52) : see previous definition of 'VK_NEXT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(423): warning C4005: 'VK_END' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(55) : see previous definition of 'VK_END'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(424): warning C4005: 'VK_HOME' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(58) : see previous definition of 'VK_HOME'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(425): warning C4005: 'VK_LEFT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(61) : see previous definition of 'VK_LEFT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(426): warning C4005: 'VK_UP' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(64) : see previous definition of 'VK_UP'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(427): warning C4005: 'VK_RIGHT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(67) : see previous definition of 'VK_RIGHT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(428): warning C4005: 'VK_DOWN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(70) : see previous definition of 'VK_DOWN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(429): warning C4005: 'VK_SELECT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(73) : see previous definition of 'VK_SELECT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(431): warning C4005: 'VK_EXECUTE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(76) : see previous definition of 'VK_EXECUTE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(432): warning C4005: 'VK_SNAPSHOT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(79) : see previous definition of 'VK_SNAPSHOT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(433): warning C4005: 'VK_INSERT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(82) : see previous definition of 'VK_INSERT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(434): warning C4005: 'VK_DELETE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(85) : see previous definition of 'VK_DELETE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(435): warning C4005: 'VK_HELP' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(88) : see previous definition of 'VK_HELP'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(443): warning C4005: 'VK_LWIN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(199) : see previous definition of 'VK_LWIN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(444): warning C4005: 'VK_RWIN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(202) : see previous definition of 'VK_RWIN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(445): warning C4005: 'VK_APPS' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(205) : see previous definition of 'VK_APPS'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(453): warning C4005: 'VK_NUMPAD0' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(208) : see previous definition of 'VK_NUMPAD0'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(454): warning C4005: 'VK_NUMPAD1' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(211) : see previous definition of 'VK_NUMPAD1'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(455): warning C4005: 'VK_NUMPAD2' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(214) : see previous definition of 'VK_NUMPAD2'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(456): warning C4005: 'VK_NUMPAD3' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(217) : see previous definition of 'VK_NUMPAD3'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(457): warning C4005: 'VK_NUMPAD4' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(220) : see previous definition of 'VK_NUMPAD4'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(458): warning C4005: 'VK_NUMPAD5' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(223) : see previous definition of 'VK_NUMPAD5'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(459): warning C4005: 'VK_NUMPAD6' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(226) : see previous definition of 'VK_NUMPAD6'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(460): warning C4005: 'VK_NUMPAD7' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(229) : see previous definition of 'VK_NUMPAD7'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(461): warning C4005: 'VK_NUMPAD8' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(232) : see previous definition of 'VK_NUMPAD8'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(462): warning C4005: 'VK_NUMPAD9' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(235) : see previous definition of 'VK_NUMPAD9'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(463): warning C4005: 'VK_MULTIPLY' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(238) : see previous definition of 'VK_MULTIPLY'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(464): warning C4005: 'VK_ADD' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(241) : see previous definition of 'VK_ADD'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(465): warning C4005: 'VK_SEPARATOR' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(244) : see previous definition of 'VK_SEPARATOR'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(466): warning C4005: 'VK_SUBTRACT' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(247) : see previous definition of 'VK_SUBTRACT'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(467): warning C4005: 'VK_DECIMAL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(250) : see previous definition of 'VK_DECIMAL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(468): warning C4005: 'VK_DIVIDE' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(253) : see previous definition of 'VK_DIVIDE'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(469): warning C4005: 'VK_F1' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(256) : see previous definition of 'VK_F1'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(470): warning C4005: 'VK_F2' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(259) : see previous definition of 'VK_F2'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(471): warning C4005: 'VK_F3' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(262) : see previous definition of 'VK_F3'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(472): warning C4005: 'VK_F4' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(265) : see previous definition of 'VK_F4'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(473): warning C4005: 'VK_F5' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(268) : see previous definition of 'VK_F5'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(474): warning C4005: 'VK_F6' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(271) : see previous definition of 'VK_F6'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(475): warning C4005: 'VK_F7' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(274) : see previous definition of 'VK_F7'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(476): warning C4005: 'VK_F8' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(277) : see previous definition of 'VK_F8'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(477): warning C4005: 'VK_F9' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(280) : see previous definition of 'VK_F9'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(478): warning C4005: 'VK_F10' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(283) : see previous definition of 'VK_F10'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(479): warning C4005: 'VK_F11' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(286) : see previous definition of 'VK_F11'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(480): warning C4005: 'VK_F12' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(289) : see previous definition of 'VK_F12'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(498): warning C4005: 'VK_NUMLOCK' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(292) : see previous definition of 'VK_NUMLOCK'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(499): warning C4005: 'VK_SCROLL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(295) : see previous definition of 'VK_SCROLL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(624): warning C4005: 'VK_ATTN' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(298) : see previous definition of 'VK_ATTN'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(625): warning C4005: 'VK_CRSEL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(301) : see previous definition of 'VK_CRSEL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(626): warning C4005: 'VK_EXSEL' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(304) : see previous definition of 'VK_EXSEL'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(627): warning C4005: 'VK_EREOF' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(307) : see previous definition of 'VK_EREOF'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(628): warning C4005: 'VK_PLAY' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(310) : see previous definition of 'VK_PLAY'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(629): warning C4005: 'VK_ZOOM' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(313) : see previous definition of 'VK_ZOOM'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(631): warning C4005: 'VK_PA1' : macro redefinition
+                 \\moriarty\dc5amt$\downloads\project portfolio assignment\wk10_start\key_codes.h(316) : see previous definition of 'VK_PA1'
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         EnergyCoil.cpp
+     1>Done Building Project "\\Moriarty\dc5amt$\Downloads\Project Portfolio Assignment\wk10_start\wk10_start.vcxproj" (build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:01.06
+Time Elapsed 00:00:12.83
