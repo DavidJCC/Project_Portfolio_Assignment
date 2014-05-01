@@ -47,29 +47,6 @@ void Game::calcYFromCubeCtr(Object *c, float halfHeight)
 	//calcNormalFrom3Points(p1, p2, p3);
 }
 
-void Game::calcNormalFrom3Points(Vector p1, Vector p2, Vector p3)
-{
-	Vector l1, l2, n1, n2, rotAxis;
-	l1 = p1-p2;
-	l2 = p3-p2;
-	n1 = (l1).CrossProduct(l2);
-	n1.Normalize();
-	
-	n2.x = 0.0f; n2.y = -1.0f; n2.z = 0.0f;
-	rotAxis = n2.CrossProduct(n1);
-	rotAxis.Normalize();
-	player->setRotAxis(rotAxis);
-	calcRotAngle(n1, n2);
-	player->setAngle(calcRotAngle(n1, n2));
-}
-
-float Game::calcRotAngle(Vector v1, Vector v2)
-{
-	float rotAngle;
-	rotAngle = v1.DotProduct(v2);
-	return rotAngle;
-}
-
 Game::~Game(void)
 {
 }
@@ -84,6 +61,22 @@ void Game::InitOpenGL()
 void Game::Initialise()
 {
 	DebugOut("Game::Initialise being called");
+	CreateGameObjects();
+	SetupLighting();
+	SetupFog();
+
+	//controls the cursor
+	POINT p;
+	p.x = SCRN_W/2; p.y = SCRN_H/2;
+	ClientToScreen(hWnd, &p);
+	SetCursorPos(p.x, p.y);
+
+	//hides the mouse cursor
+	//ShowCursor(false);
+}
+
+void Game::CreateGameObjects()
+{
 	font1 = new BFont(hDC, "Courier", 20);
 	timer = new Timer();
 
@@ -98,13 +91,6 @@ void Game::Initialise()
 	skybox = new Skybox();
 	skybox->loadTextures();
 
-	//energy coils setup
-	for(int i = 0; i < NUM_COILS; i++)
-	{
-		//as no models files or texures are loaded the coils will be represented as a gluquadric shape. If I find a good model to use replace it
-		energyCoils[i] = new EnergyCoil(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f));
-	}
-
 	//audio setup
 	audioPlayer = new AudioPlayer("sounds/background.mp3");
 	audioPlayer->playSound();
@@ -116,6 +102,16 @@ void Game::Initialise()
 	for(int i = 0; i < NUM_ZOMBIES; i++)
 		zombies[i] = new Zombie(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f), "Data/Phantom/tris.md2", "Data/Phantom/texture.bmp");
 
+	//energy coils setup
+	for(int i = 0; i < NUM_COILS; i++)
+	{
+		EnergyCoil* coil = new EnergyCoil(rnd.number(10.0f, MAP_X * MAP_SCALE * 0.9f), 275.0f, -rnd.number(10.0f, MAP_Z * MAP_SCALE * 0.9f),"Data/Sodf8/Tris.md2", "Data/pKnight/pknight.bmp");
+		energyCoils.push_back(coil);
+	}
+}
+
+void Game::SetupLighting()
+{
 	float matSpec[] = {1.0f, 1.0f, 1.0f, 1.0f };
 	float matShiny[] = {5.0f};  //128 is max value
 	lightPos[0]= player->getPos().x; lightPos[1]=1900.0f; lightPos[2]= player->getPos().z; lightPos[3]=0.1f;
@@ -135,15 +131,23 @@ void Game::Initialise()
 	lSphere = gluNewQuadric();	//to show where light pos is
 	gluQuadricDrawStyle(lSphere, GLU_FILL);
 	gluQuadricNormals(lSphere, GLU_NONE);
+}
 
-	//controls the cursor
-	POINT p;
-	p.x = SCRN_W/2; p.y = SCRN_H/2;
-	ClientToScreen(hWnd, &p);
-	SetCursorPos(p.x, p.y);
-
-	//hides the mouse cursor
-	ShowCursor(false);
+void Game::SetupFog()
+{
+	GLuint filter;
+	GLuint fogMode[] = { GL_EXP, GL_EXP2, GL_LINEAR };
+	GLuint fogFilter = 0;
+	GLfloat fogColour[4] = { 0.5f, 0.5f, 0.5f, 1.0f };
+	GLfloat fogDensity = 0.003f;
+	
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glFogi(GL_FOG_MODE, fogMode[fogFilter]);
+	glFogfv(GL_FOG_COLOR, fogColour);
+	glFogf(GL_FOG_DENSITY, fogDensity);
+	glHint(GL_FOG_HINT, GL_DONT_CARE);          // Fog Hint Value
+	glFogf(GL_FOG_START, 1.0f);             // Fog Start Depth
+	glFogf(GL_FOG_END, 100.0f);               // Fog End Depth
 }
 
 void Game::Shutdown()
@@ -155,6 +159,7 @@ void Game::Shutdown()
 	skybox->kill();
 	delete skybox;
 	delete cam;
+	energyCoils.clear();
 	if(lSphere != NULL)
 		gluDeleteQuadric(lSphere);
 	DebugOut("TERMINATED");
@@ -164,52 +169,75 @@ void Game::Update()
 {
 	UpdateFps();
 
+	//disable the fog is the game is over or the game is at the initial splashscreen
+	if(gameState == START || gameState == OVER) 
+		glDisable(GL_FOG);
+
 	/***********************************
 		IF GAME IS PLAYING UPDATE
 	***********************************/
 	if(gameState == PLAYING)
 	{
+		glEnable(GL_FOG); //enable fog if the game is playing
 		//GAME OVER IF HEALTH EQUALS OR LESS
 		if(player->getHealth() == 0)
 			gameState = OVER;
+	
+		//IF THE PLAYER COLLECTS ALL THE COILS THE GAME IS WON
+		if(player->getCollectedCoils() == NUM_COILS)
+			gameState =  OVER;
 
-		//COLLISION DETECTION HERE		
+		/*****************************************
+		COLLISION DETECTION FOR PLAYER AND ZOMBIES
+		*****************************************/
 		for(int i = 0; i < NUM_ZOMBIES; i++)
 		{
 			if(player->collidesWith(zombies[i]))
-			{
 				player->updateHealth(-5);
-			}
-		}
 
-		for(int i = 0; i < NUM_COILS; i++)
-		{
-			if(energyCoils[i]->collidesWith(player))
-			{
-				PostQuitMessage(0);
-				energyCoils[i]->setCollected(true);
-			}
+			calcYFromCubeCtr(zombies[i], zombies[i]->bb.ySize() / 2.0f);  
+			zombies[i]->update(tbf);
 		}
-
-		//UPDATE GAME OBJECTS HERE
 		player->update(tbf);
 		calcYFromCubeCtr(player, player->bb.ySize()  / 2.0f);
 
-		for(int i = 0; i < NUM_COILS; i++)
+		/***********************************************
+		COLLISION DETECTION FOR PLAYER AND ENERGY COIL
+		***********************************************/
+		for(int i = 0; i < energyCoils.size(); i++)
+		{
+			if(energyCoils[i]->collidesWith(player))
+			{
+				energyCoils.erase(energyCoils.begin() + i);
+				player->updateCollectedCoils(1);
+			}			
+		}
+
+		cam->cameraPos(player->getPos().x, player->getPos().y, player->getPos().z);
+
+		for(int i = 0; i < energyCoils.size(); i++)
 		{
 			calcYFromCubeCtr(energyCoils[i], energyCoils[i]->bb.ySize() / 2.0f);
 			energyCoils[i]->update(tbf);
 		}
-
-		for(int i = 0; i < NUM_ZOMBIES; i++)
-		{
-			calcYFromCubeCtr(zombies[i], zombies[i]->bb.ySize() / 2.0f);  
-			zombies[i]->update(tbf);
-		}
-
-		cam->cameraPos(player->getPos().x, player->getPos().y, player->getPos().z); 
 	}
-	//======================================//
+	/*********END UPDATE WHILE PLAYING**************/
+
+	ProcessInput();
+}
+
+void Game::ProcessInput()
+{
+	if(GetAsyncKeyState(VK_A))
+	{
+		player->rotate(5.0f);
+		player->setVel(WALK_SPD, 0, 0);
+	}
+
+	if(GetAsyncKeyState(VK_D))
+	{
+		player->rotate(-5.0f);
+	}
 }
 
 void Game::DrawLightSwitch()
@@ -225,13 +253,11 @@ void Game::drawLightSource()
 	{
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_LIGHTING);
-
 		glColor3f(1.0f, 1.0f, 0.0f);
 		glPushMatrix();
 			glTranslatef(lightPos[0], lightPos[1], lightPos[2]);
 			gluSphere(lSphere, 10.0f, 20, 12);
 		glPopMatrix();
-
 		glEnable(GL_LIGHTING);
 		glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
 	}
@@ -242,10 +268,8 @@ RENDER OBJECTS IN THEIR CURRENT STATE
 *************************************/
 void Game::Render()
 {
-	//glEnable(GL_LIGHTING);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-
 	/*********************************************************
 	IF GAME IS PLAYING RENDER OBJECTS, TERRAIN AND SKYBOX
 	*********************************************************/
@@ -253,23 +277,18 @@ void Game::Render()
 	{
 		//LOOK AT/UPDATE THE CAMERA POSITION
 		gluLookAt(cam->getCamX(), cam->getCamY(), cam->getCamZ(), cam->getToX(), cam->getToY(), cam->getToZ(), 0.0f, 1.0f, 0.0f);
-		skybox->render( 20.0f, cam->getCamX(), -100, -cam->getCamZ() );		
-		
+		//skybox->render( 20.0f, cam->getCamX(), -100, -cam->getCamZ() );		
 		drawLightSource();	
-		//gd->Render();
 		terrain->render();
 		player->render();
-
 		for(int i = 0; i < NUM_ZOMBIES; i++)
 			zombies[i]->render();
-		for(int i = 0; i < NUM_COILS; i++)
+		for(int i = 0; i < energyCoils.size(); i++)
 			energyCoils[i]->render();
 	}
-
 	RenderHUD();
-
 	glFlush();
-	fCount++;	// increment frame counter
+	
 }
 
 void Game::RenderHUD()
@@ -292,10 +311,8 @@ void Game::RenderHUD()
 		glVertex2f(m_width, 0);
 	glEnd();
 	glDisable(GL_BLEND);
-
 	// Print the statistics
 	HudOutput();
-
 	// Set back to 3D
 	Set3D(VIEW_ANGLE, NEAR_CLIPPING, FAR_CLIPPING);
 }
@@ -309,6 +326,8 @@ void Game::UpdateFps()
 	// Calc stats - FPS etc
 	fps = 1.0f / tbf;
 	avgFps = fCount / cft;
+
+	fCount++;	// increment frame counter
 }
 
 void Game::PauseGame()
@@ -340,6 +359,8 @@ void Game::HudOutput()
 		font1->printString(SCRN_W/2-210, SCRN_H/2+20, text);
 		sprintf_s(text, "You have no weapons so avoid them or they'll eat your face.");
 		font1->printString(SCRN_W/2-260, SCRN_H/2+40, text);
+		sprintf_s(text, "The energy coils are blue rings");
+		font1->printString(SCRN_W/2-260, SCRN_H/2+80, text);
 		sprintf_s(text, "WASD - Move Player    SHIFT - SPRINT");
 		font1->printString(SCRN_W/2-170, SCRN_H/2+150, text);	
 	}
@@ -350,13 +371,15 @@ void Game::HudOutput()
 		font1->printString(4, 20, text);
 		sprintf_s(text, "Health: %i", player->getHealth());
 		font1->printString(4, 40, text);
+		sprintf_s(text, "Coils Collected: %i / %i", player->getCollectedCoils(), NUM_COILS);		
+		font1->printString(180, 40, text);
 		sprintf_s(text, "%6.1f FPS", avgFps);
 		font1->printString(SCRN_W - 150, 20, text);		
 	}
 
 	if(gameState == OVER)
 	{
-		if(player->getHealth() < 1)
+		if(player->getHealth() > 1)
 		{
 			sprintf_s(text, "You collected all the energy coils.");
 			font1->printString(SCRN_W/2-160, SCRN_H / 2 - 20, text);
@@ -364,7 +387,7 @@ void Game::HudOutput()
 			font1->printString(SCRN_W/2-180, SCRN_H / 2, text);
 		}
 		else
-		{			
+		{
 			sprintf_s(text, "You failed in your task and got killed.");
 			font1->printString(SCRN_W/2-200, SCRN_H / 2 - 20, text);
 			sprintf_s(text, "You are a failure, your body will now be eaten.");
@@ -388,6 +411,14 @@ void Game::HudOutput()
 
 void Game::StartGame()
 {
-	if(gameState != PLAYING)
+	if(gameState == OVER)
+		ResetGame();
+
+	if(gameState == START)
 		gameState = PLAYING;
+}
+
+void Game::ResetGame()
+{
+	CreateGameObjects();	
 }

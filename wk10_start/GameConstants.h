@@ -1,6 +1,13 @@
 #ifndef GAME_CONSTANTS_H
 #define GAME_CONSTANTS_H
 
+#include <math.h>
+
+#define _USE_MATH_DEFINES
+
+const float P = atan(1.0f)*4.0f;
+const float DEGTORAD = P / 180.0f;
+
 /*******************************
 		SCREEN DIMENSIONS
 *******************************/
@@ -30,7 +37,7 @@ const int NUM_BONUS = 6;
 /*******************************
 		  EERGY COILS
 *******************************/
-const int NUM_COILS = 10;
+const int NUM_COILS = 5;
 
 /*******************************
 		    PLAYER

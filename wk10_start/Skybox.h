@@ -6,7 +6,7 @@ class Skybox
 private:
 			//load texture reference
 			//0			1			2			3			4			5   
-	enum { SKY_LEFT=0, SKY_BACK, SKY_RIGHT, SKY_FRONT, SKY_TOP, SKY_BOTTOM };
+	enum textureRef{ SKY_LEFT=0, SKY_BACK, SKY_RIGHT, SKY_FRONT, SKY_TOP, SKY_BOTTOM };
 
 	unsigned int texture[6];	//the ids for the textures
 	unsigned int imgNumbers[6];

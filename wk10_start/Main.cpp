@@ -41,29 +41,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 				case VK_L:
 					g_Game.DrawLightSwitch();
 					break;
-				case VK_1:
-					g_Game.lightPos[0] += 50;
-					break;
-				case VK_2:
-					g_Game.lightPos[0] -= 50;
-					break;
 				case VK_SHIFT:
 					g_Game.player->setSprinting(true);
 					break;
 				case VK_W:
-					g_Game.player->setVel(WALK_SPD, 0, 0);
+					//g_Game.player->setVel(WALK_SPD, 0, 0);
+					g_Game.player->rotMove(WALK_SPD);
 					g_Game.player->setWalking(true);
 					break;
 				case VK_S:
-					g_Game.player->setVel(-WALK_SPD, 0, 0);
+					//g_Game.player->setVel(-WALK_SPD, 0, 0);
+					g_Game.player->rotMove(-WALK_SPD);
 					g_Game.player->setWalking(true);
 					break;
 				case VK_A:
-					g_Game.player->setVel(0, 0, -WALK_SPD);
-					g_Game.player->setWalking(true);
+					//g_Game.player->setVel(0, 0, -WALK_SPD);
+					//g_Game.player->rotate(10.0f);
 					break;
 				case VK_D:
-					g_Game.player->setVel(0 ,0, WALK_SPD);
+					//g_Game.player->setVel(0 ,0, WALK_SPD);
+					//g_Game.player->rotate(-10.0f);
 					break;
 				default:
 					break;
@@ -105,8 +102,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 			// Track the mouse position
 			g_Game.cam->setMouseX(LOWORD(lParam));
 			g_Game.cam->setMouseY(HIWORD(lParam));
-			if(g_Game.picking == false)
-				g_Game.cam->cameraPos();
 		break;
 		case WM_MOUSEWHEEL:
 			if(GET_WHEEL_DELTA_WPARAM(wParam) < 0)  //chk dir of scroll wheel

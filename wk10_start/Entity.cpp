@@ -13,18 +13,6 @@ Entity::Entity(float x, float y, float z, char* modelFile, char* modelTex) : MD2
 	m_angle = 90.0f;
 }
 
-Entity::Entity(float x, float y, float z)
-{
-	m_pos.x = x;	m_pos.y = y;	m_pos.z = z;
-	m_health = 100;
-	m_lives = 3;
-	m_bbRender = m_isMoving = m_isSprinting = m_isWalking = false;
-	m_firstTime = true;
-	m_rotAxis = m_dir = -1.0f, 0.0f, 0.0f;
-	m_vel = Vector();
-	m_angle = 90.0f;
-}
-
 Entity::~Entity(void)
 {
 }
@@ -76,7 +64,7 @@ void Entity::move(float time)
 void Entity::update(float time)
 {
 	move(time);
-	keepOnMap();
+	rotate(time);
 
 	if(m_health < 1)
 		setHealth(0);
@@ -121,17 +109,17 @@ void Entity::animate()
 	}
 }
 
-void Entity::rotate()
+void Entity::rotate(float angle)
 {
-	float rotAngle = 0;
+	m_angle += angle;
+	m_angle = fmod(m_angle, 360);
+}
 
-	rotAngle = (m_vel).DotProduct(m_dir); 
-	rotAngle = rotAngle * 180/float(M_PI);
-
-	Vector rotAxis = (m_dir.UnitVector()).CrossProduct(m_vel.UnitVector()); 
-	rotAxis.Normalize();
-	
-	render();
+void Entity::rotMove(float time)
+{
+	//m_pos.x += cos(m_angle * DEGTORAD) * time;
+	//m_pos.z += -sin(m_angle * DEGTORAD) * time;
+	setVel(cos(m_angle * DEGTORAD) * time, 0.0f, -sin(m_angle * DEGTORAD) * time);
 }
 
 void Entity::render()
@@ -139,7 +127,8 @@ void Entity::render()
 	glEnable(GL_TEXTURE_2D);
 	glPushMatrix();
 		glTranslatef(m_pos.x, m_pos.y, m_pos.z);		
-		glRotatef(m_angle, m_rotAxis.x, m_rotAxis.y, m_rotAxis.z);
+		glRotatef(90.0f, -1.0f, 0.0f, 0.0f);
+		glRotatef(m_angle, 0.0f, 0.0f, 1.0f);
 		if(m_bbRender) bb.render(); //render bounding box
 		animate();
 	glPopMatrix();

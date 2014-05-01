@@ -4,16 +4,16 @@ Player::Player(float x, float y, float z, char* modelFile, char* modelTex) : Ent
 {
 	m_health = 500;
 	m_score = 0;
-	m_noOfCoilsCollected = collectedCoils.size();
+	m_noOfCoilsCollected = 0;
 }
 
 Player::~Player(void)
 {
 }
 
-void Player::addCoilToInventory(EnergyCoil* coil)
+void Player::resetPlayerStats()
 {
-	collectedCoils.push_back(coil);
+	m_health = 500;
+	m_score = 0;
+	m_noOfCoilsCollected = 0;
 }
-
-

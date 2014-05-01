@@ -1,5 +1,4 @@
 #pragma once
-#define _USE_MATH_DEFINES
 #include "basegame.h"
 #include "bfont.h"
 #include <cmath>
@@ -18,7 +17,6 @@
 #include "Terrain.h"
 #include "Camera.h"
 #include "AudioPlayer.h"
-#include "GameDomain.h"
 #include "EnergyCoil.h"
 
 #include "timer.h"
@@ -62,14 +60,15 @@ private:
 	Camera* cam;
 	Player* player;
 	Zombie* zombies[NUM_ZOMBIES];
-	EnergyCoil* energyCoils[NUM_COILS];
+	//EnergyCoil* energyCoils[NUM_COILS];
+	std::vector<EnergyCoil*>energyCoils;
 	bool objSelected, picking, drawLight;
 	int objectPicked;
 	Skybox* skybox;
 	Terrain* terrain;
 	AudioPlayer* audioPlayer;
-	GameDomain* gd;
 	bool keys[256];
+	bool d;
 public:
 
 	Game(void);
@@ -131,10 +130,42 @@ public:
 	*/
 	void PauseGame();
 
+	/*
+	Output the relevant information like health, score, etc..
+	*/
 	void HudOutput();	
+
+	/*
+	Sets the game to playing
+	*/
 	void StartGame();
+
+	/*
+	Switches the lights on/off. Lights off == SPOOKY
+	*/
 	void DrawLightSwitch();
 
+	/*
+	Create the game objects. Useful for resetting the game. Call this in initialise first.
+	*/
+	void CreateGameObjects();
+
+	/*
+	Set up game lighting
+	*/
+	void SetupLighting();
+
+	/*
+	Setup the fog
+	*/
+	void SetupFog();
+
+	/*
+	Reset the game
+	*/
+	void ResetGame();
+
+	void ProcessInput();
 
 	/**************************************************************
 			FIND OUT WHERE TO PUT THESE DONT LEAVE THEM HERE
@@ -142,6 +173,4 @@ public:
 	float calcY(float x, float z, Vector p1, Vector p2, Vector p3);
 	void calcYFromCubeCtr(Object *c, float halfHeight);
 	Vector calcAvgNormal(int x, int z);
-	void calcNormalFrom3Points(Vector p1, Vector p2, Vector p3);
-	float calcRotAngle(Vector v1, Vector v2);
 };

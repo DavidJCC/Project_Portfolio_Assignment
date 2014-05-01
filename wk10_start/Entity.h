@@ -22,11 +22,9 @@ protected:
 	bool m_firstTime;
 	bool m_isWalking;
 	bool m_isSprinting;
-	bool m_bbRender;
-	
+	bool m_bbRender;	
 public:
 	Entity(float x, float y, float z, char* modelFile, char* modelTex);
-	Entity(float x, float y, float z);
 	~Entity(void);
 
 	//setters and getters
@@ -46,6 +44,7 @@ public:
 	void setVel(float x, float y, float z);
 	void setRotAxis(Vector rotAxis) { m_rotAxis = rotAxis; }
 	void setAngle(float angle) { m_angle = angle; }
+	float getAngle() { return m_angle; }
 	void setDir(Vector dir) { m_dir = dir; }
 
 	void move(float time);
@@ -55,7 +54,9 @@ public:
 	void animate();
 	void render();
 
-	void rotate();
+	void rotate(float angle);
+	void rotMove(float move);
+
 	void keepOnMap();
 
 	bool collidesWith(Entity* entity);

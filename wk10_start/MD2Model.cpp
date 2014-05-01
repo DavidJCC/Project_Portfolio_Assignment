@@ -28,13 +28,12 @@ void NormToPlane(Vector p1, Vector p2, Vector p3){
 
 MD2Model::MD2Model(){
 	interValue = 0;
-	myModel = gunModel = NULL;
+	myModel  = NULL;
 	alpha = 1.0f;
 }
 
 MD2Model::~MD2Model(){
 	FreeModel(myModel);
-	FreeModel(gunModel);
 }
 
 texture_t* MD2Model::LoadBMPTexture(char *filename){
@@ -349,97 +348,4 @@ void MD2Model::DisplayMD2Interpolate(int startFrame, int endFrame, float percent
 	glEnd();
 	glDisable(GL_BLEND);
 	model->interpol += percent;	// increase percentage of interpolation between frames
-}
-
-void MD2Model::SetAnimation(int state, int nextState)
-{
-  switch (state)
-  {
-  case RUN:
-    m_startFrame = 40;
-    m_endFrame = 45;
-    break;
-  case ATTACK:
-    m_startFrame = 46;
-    m_endFrame = 53;
-    break;
-  case PAIN1:
-    m_startFrame = 54;
-    m_endFrame = 57;
-    break;
-  case PAIN2:
-    m_startFrame = 58;
-    m_endFrame = 61;
-    break;
-  case PAIN3:
-    m_startFrame = 62;
-    m_endFrame = 65;
-    break;
-  case JUMP:
-    m_startFrame = 66;
-    m_endFrame = 71;
-    break;
-  case FLIPOFF:
-    m_startFrame = 72;
-    m_endFrame = 83;
-    break;
-  case SAULTE:
-    m_startFrame = 84;
-    m_endFrame = 94;
-    break;
-  case TAUNT:
-    m_startFrame = 95;
-    m_endFrame = 111;
-    break;
-  case WAVE:
-    m_startFrame = 112;
-    m_endFrame = 122;
-    break;
-  case CROUCH_IDLE:
-    m_startFrame = 135;
-    m_endFrame = 153;
-    break;
-  case CROUCH_WALK:
-    m_startFrame = 154;
-    m_endFrame = 159;
-    break;
-  case CROUCH_ATTACK:
-    m_startFrame = 160;
-    m_endFrame = 168;
-    break;
-  case CROUCH_PAIN:
-    m_startFrame = 169;
-    m_endFrame = 172;
-    break;
-  case CROUCH_DEATH:
-    m_startFrame = 173;
-    m_endFrame = 177;
-    break;
-  case DEATH1:
-    m_startFrame = 178;
-    m_endFrame = 183;
-    break;
-  case DEATH2:
-    m_startFrame = 184;
-    m_endFrame = 189;
-    break;
-  case DEATH3:
-    m_startFrame = 190;
-    m_endFrame = 197;
-    break;
-  case IDLE:
-    m_startFrame = 0;
-    m_endFrame = 39;
-    break;
-  default:
-    return;
-  }
-
-  if (m_state != state)
-  {
-    m_currentFrame = m_startFrame;
-    m_nextFrame = m_startFrame + 1;
-  }
-  m_state = state;
-  m_nextState = nextState;
 }
